@@ -1,4 +1,8 @@
 package com.OrganizationManagement.organizationManagement.DepResource;
 
-public interface DepResRepo {
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface DepResRepo extends JpaRepository<DepResModel,Long> {
 }

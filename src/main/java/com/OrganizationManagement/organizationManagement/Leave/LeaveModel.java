@@ -5,6 +5,8 @@ import lombok.Data;
 import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @CrossOrigin
 @Entity
 @Table(name = "leaveTable")
@@ -12,6 +14,9 @@ import java.time.LocalDate;
 public class LeaveModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "leaveId")
+    private Long leaveId;
+
     @Column(name = "employeeId")
     private Long employeeId;
 
@@ -27,25 +32,32 @@ public class LeaveModel {
     @Column(name = "statusId")
     private Long statusId;
 
-    public LeaveModel(){
-        this.statusId=1L;
+//    @Column(name = "timeStamp")
+//    private LocalDateTime timestamp;
+//
+//    public LocalDateTime getTimestamp() {
+//        return timestamp;
+//    }
+//
+//    public void setTimestamp(LocalDateTime timestamp) {
+//        this.timestamp = timestamp;
+//    }
+
+
+    public Long getLeaveId() {
+        return leaveId;
     }
 
-
-    public String getReason() {
-        return reason;
+    public void setLeaveId(Long leaveId) {
+        this.leaveId = leaveId;
     }
 
-    public void setReason(String reason) {
-        this.reason = reason;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(LocalDate endDate) {
-        this.endDate = endDate;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
     public LocalDate getStartDate() {
@@ -56,12 +68,20 @@ public class LeaveModel {
         this.startDate = startDate;
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public Long getStatusId() {

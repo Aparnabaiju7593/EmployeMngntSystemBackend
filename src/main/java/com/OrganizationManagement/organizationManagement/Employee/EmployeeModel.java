@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "employee_table")
@@ -17,8 +18,24 @@ public class EmployeeModel {
     @Column(name = "designationId")
     private Long designationId;
 
+    @Column(name = "departmentName")
+    private String departmentName;
+
+    @Column(name = "departmentId")
+    private Long departmentId;
+
     @Column(name = "name")
     private String name;
+
+
+
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
 
     @Column(name = "email")
     private String email;
@@ -35,13 +52,12 @@ public class EmployeeModel {
     @Column(name = "joinDate")
     private LocalDate joinDate;
 
+
     @Lob
     @Column(name = "employeeImage")
     private byte[] employeeImage;
 
-    public EmployeeModel(){
-        this.roleId=2L;
-    }
+
 
     public Long getRoleId() {
         return roleId;
@@ -51,15 +67,7 @@ public class EmployeeModel {
         this.roleId = roleId;
     }
 
-//    @Column(name = "joinDate")
-//    private LocalDate joinDate;
-//
-//    @Lob
-//    @Column(name = "employeeImage")
-//    private byte[] employeeImage;
 
-//    @Column(name = "joinDate")
-//    private LocalDate joinDate;
 
     public byte[] getEmployeeImage() {
         return employeeImage;
@@ -68,13 +76,14 @@ public class EmployeeModel {
     public void setEmployeeImage(byte[] employeeImage) {
         this.employeeImage = employeeImage;
     }
-//    public byte getEmployeeImage() {
-//        return employeeImage;
-//    }
 
-//    public void setEmployeeImage(byte employeeImage) {
-//        this.employeeImage = employeeImage;
-//    }
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public Long getEmployeeId() {
         return employeeId;
@@ -133,6 +142,5 @@ public class EmployeeModel {
     }
 
    
-//    public Long getRoleId() {
-//    }
+
 }

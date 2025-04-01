@@ -1,4 +1,4 @@
-package com.OrganizationManagement.organizationManagement.Admin;
+package com.OrganizationManagement.organizationManagement.EmployeeDto;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;

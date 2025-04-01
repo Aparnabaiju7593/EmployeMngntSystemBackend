@@ -8,4 +8,5 @@ import java.util.Optional;
 @Repository
 public interface DesignationRepo extends JpaRepository<DesignationModel,Long> {
 
+    Optional<DesignationModel> findByDesignationId(Long designationId);
 }

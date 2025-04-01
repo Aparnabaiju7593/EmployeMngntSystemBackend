@@ -9,19 +9,27 @@ import lombok.Data;
 public class DepartmentModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "depId")
-    private Long depId;
+    @Column(name = "departmentId")
+    private Long departmentId;
 
     @Column(name = "department")
     private String department;
 
-    public Long getDepId() {
-        return depId;
+    public Long getDepartmentId() {
+        return departmentId;
+
     }
 
-    public void setDepId(Long depId) {
-        this.depId = depId;
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
     }
+//    public Long getDepId() {
+//        return depId;
+//    }
+//
+//    public void setDepId(Long depId) {
+//        this.depId = depId;
+//    }
 
     public String getDepartment() {
         return department;
