@@ -6,6 +6,7 @@ import com.OrganizationManagement.organizationManagement.Employee.EmployeeModel;
 import com.OrganizationManagement.organizationManagement.Employee.EmployeeService;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.LateDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.LeaveDto;
+import com.OrganizationManagement.organizationManagement.EmployeeDto.ResourceDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.TaskDto;
 import com.OrganizationManagement.organizationManagement.Late.LateModel;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
@@ -227,5 +228,10 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
         }
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+    @GetMapping(path = "/getResource")
+    public ResponseEntity<List<ResourceDto>>getAllResource(){
+        return departmentService.getAllResource();
+    }
+
 
 }

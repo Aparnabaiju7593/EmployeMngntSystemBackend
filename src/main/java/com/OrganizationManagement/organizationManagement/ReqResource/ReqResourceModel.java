@@ -28,6 +28,10 @@ public class ReqResourceModel {
     @Column(name = "quantity")
     private Integer quantity;
 
+    public Integer getQuantity() {
+        return quantity;
+    }
+
     @Column(name = "statusId")
     private Long statusId;
 
@@ -43,9 +47,7 @@ public class ReqResourceModel {
 
     }
 
-    public Integer getQuantity() {
-        return quantity;
-    }
+
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;

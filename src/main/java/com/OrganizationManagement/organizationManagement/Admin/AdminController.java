@@ -9,6 +9,7 @@ import com.OrganizationManagement.organizationManagement.EmployeeDto.EmpDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.LateDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.RequestDto;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
+import com.OrganizationManagement.organizationManagement.Resource.ResourceModel;
 import com.OrganizationManagement.organizationManagement.Role.RoleModel;
 import com.OrganizationManagement.organizationManagement.Status.StatusModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -154,7 +155,8 @@ public class AdminController {
 //        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
 //    }
 
-    //get all status
+    //get all status list
+
     @GetMapping(path = "/listStatus")
     public ResponseEntity<List<StatusModel>>getAllStatus(){return adminService.getAllStatus();}
 
@@ -200,19 +202,23 @@ public class AdminController {
         return adminService.getDepartment(departmentId);
     }
 
-//list
+//list department
 
 @GetMapping(path = "/listallDepartment")
     public ResponseEntity<List<DepartmentModel>>getAllDepartment(){
         return adminService.getAllDepartment();
 }
 
-
+//list roles
     @GetMapping(path = "/getAllRoles")
     public ResponseEntity<List<RoleModel>>getAll(){
         return adminService.getRole();
     }
-
+//list resources
+    @GetMapping(path = "/getAllResources")
+    public ResponseEntity<List<ResourceModel>>getAllResources(){
+        return adminService.getAllResources();
+    }
 
 
 

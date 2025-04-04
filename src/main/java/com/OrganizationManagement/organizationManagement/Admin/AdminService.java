@@ -16,6 +16,8 @@ import com.OrganizationManagement.organizationManagement.Late.LateModel;
 import com.OrganizationManagement.organizationManagement.Late.LateRepo;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveRepo;
+import com.OrganizationManagement.organizationManagement.Resource.ResouceRepo;
+import com.OrganizationManagement.organizationManagement.Resource.ResourceModel;
 import com.OrganizationManagement.organizationManagement.Role.RoleModel;
 import com.OrganizationManagement.organizationManagement.Role.RoleRepo;
 import com.OrganizationManagement.organizationManagement.Status.StatusModel;
@@ -51,6 +53,8 @@ public class AdminService {
     private LeaveRepo leaveRepo;
     @Autowired
     private DepResRepo depResRepo;
+    @Autowired
+    private ResouceRepo resouceRepo;
 
     //   admin registration
 
@@ -308,6 +312,11 @@ public class AdminService {
     public ResponseEntity<List<RoleModel>> getRole() {
         List<RoleModel>roleModelList=roleRepo.findAll();
         return new ResponseEntity<>(roleModelList,HttpStatus.OK);
+    }
+//get all resources
+    public ResponseEntity<List<ResourceModel>> getAllResources() {
+        List<ResourceModel>resourceModelList=resouceRepo.findAll();
+        return new ResponseEntity<>(resourceModelList,HttpStatus.OK);
     }
 }
 

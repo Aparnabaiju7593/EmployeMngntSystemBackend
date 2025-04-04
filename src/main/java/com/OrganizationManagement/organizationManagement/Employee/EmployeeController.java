@@ -53,7 +53,7 @@ public class EmployeeController {
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    //add resource request
+    // request resource
 
     @PostMapping(path = "reqResource")
     public ResponseEntity<?>requestres(@RequestBody ReqResourceModel reqResourceModel){
@@ -89,13 +89,6 @@ public class EmployeeController {
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
-
-//employee view task
-//    @GetMapping(path = "/getEmployeeTask")
-//    public ResponseEntity<?>getTaskview(@RequestParam Long employeeId){
-//        return employeeService.getTaskView(employeeId);
-//    }
 
          //employee view task
 

@@ -146,30 +146,7 @@ public class EmployeeService {
     }
 
     //employee view task
-//    public ResponseEntity<?> getTaskView(Long employeeId) {
-//        List<TaskDto> taskDtoList = new ArrayList<>();
-//        List<TaskModel> taskModelList = taskRepo.findByEmployeeId(employeeId);
-//        if (!taskModelList.isEmpty()) {
-//            for (TaskModel taskModel : taskModelList) {
-//                TaskDto taskDto = new TaskDto();
-//                taskDto.setTaskName(taskModel.getTaskName());
-//                taskDto.setDescription(taskModel.getDescription());
-//                taskDto.setStartDate(taskModel.getStartDate());
-//                Optional<StatusModel> statusModelOptional = statusRepo.findById(taskModel.getStatusId());
-//                if (statusModelOptional.isPresent()) {
-//                    StatusModel statusModel = statusModelOptional.get();
-//                    taskDto.setStatus(statusModel.getStatusName());
-//                }
-//                taskDtoList.add(taskDto);
-//
-//
-//            }
-//            return new ResponseEntity<>(taskDtoList,HttpStatus.OK);
-//        }
-//  return new ResponseEntity<>(taskDtoList,HttpStatus.OK);
-//
-//
-//    }
+
     public ResponseEntity<List<TaskDto>> getTaskView(Long employeeId) {
         List<TaskModel> taskModelList = taskRepo.findByEmployeeId(employeeId);
 
