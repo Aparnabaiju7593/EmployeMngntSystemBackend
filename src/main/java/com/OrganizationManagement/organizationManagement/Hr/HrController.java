@@ -25,13 +25,13 @@ public class HrController {
 
     //login
 
-    @PostMapping(path = "/login")
-    public ResponseEntity<?>loginHr(@RequestParam String email,@RequestParam String password){
-        try {
-            return hrService.loginDetails(email,password);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
-    }
+//    @PostMapping(path = "/login")
+//    public ResponseEntity<?>loginHr(@RequestParam String email,@RequestParam String password){
+//        try {
+//            return hrService.loginDetails(email,password);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
 }

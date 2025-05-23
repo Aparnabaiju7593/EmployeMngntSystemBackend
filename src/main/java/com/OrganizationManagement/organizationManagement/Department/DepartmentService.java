@@ -66,7 +66,7 @@ public class DepartmentService {
         departmentRepo.save(departmentModel1);
         return new ResponseEntity<>(departmentModel1, HttpStatus.OK);
     }
-//late
+// add late
     public ResponseEntity<?> lateReqst(Long employeeId) {
         LateModel lateModel1=new LateModel();
         lateModel1.setStatusId(lateModel1.getStatusId());
@@ -125,7 +125,6 @@ public class DepartmentService {
 
 
                      //approved resource
-
 
     public ResponseEntity<?> approvedDep(Long employeeId, Long statusId) {
         // Validate Employee
@@ -400,39 +399,6 @@ public class DepartmentService {
 
 
     //get all resources
-//    public ResponseEntity<List<ResourceDto>>getAllResource(){
-//        List<ResourceDto>resourceDto =new ArrayList<>();
-//        List<ReqResourceModel>reqResourceModelList = reqResourceRepo.findAll();
-//        if (!reqResourceModelList.isEmpty()){
-//            for (ReqResourceModel reqResourceModel:reqResourceModelList) {
-//                ResourceDto resourceDto = new ResourceDto();
-//                resourceDto.setReqResourceId(reqResourceModel.getReqResourceId());
-//                resourceDto.setQuantity(reqResourceModel.getQuantity());
-//                resourceDto.setReason(reqResourceModel.getReason());
-//                resourceDto.setRequestDate(reqResourceModel.getRequestDate());
-//                resourceDto.setApprovalDate(reqResourceModel.getApprovalDate());
-//                Optional<EmployeeModel> employeeModelOptional = employeeRepo.findById(reqResourceModel.getEmployeeId());
-//                if (employeeModelOptional.isPresent()) {
-//                    EmployeeModel employeeModel = employeeModelOptional.get();
-//                    resourceDto.setEmployee(employeeModel.getName());
-//                }
-//                Optional<StatusModel> statusModelOptional = statusRepo.findById(reqResourceModel.getStatusId());
-//                if (statusModelOptional.isPresent()) {
-//                    StatusModel statusModel = statusModelOptional.get();
-//                    resourceDto.setStatus(statusModel.getStatusName());
-//                }
-//                Optional<ResourceModel> resourceModelOptional = reqResourceRepo.findById(reqResourceModel.getResourceId());
-//                if (resourceModelOptional.isPresent()) {
-//                    ResourceModel resourceModel = resourceModelOptional.get();
-//                    resourceDto.setResource(resourceModel.getResource());
-//                }
-//                resourceDto.add(resourceDto);
-//
-//            }
-//            return new ResponseEntity<>(resourceDto,HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
-//    }
 
     public ResponseEntity<List<ResourceDto>> getAllResource() {
         List<ResourceDto> resourceDtoList = new ArrayList<>();
@@ -442,9 +408,11 @@ public class DepartmentService {
             for (ReqResourceModel reqResourceModel : reqResourceModelList) {
                 ResourceDto dto = new ResourceDto();
                 dto.setReqResourceId(reqResourceModel.getReqResourceId());
+                dto.setEmployeeId(reqResourceModel.getEmployeeId());
                 dto.setQuantity(reqResourceModel.getQuantity());
                 dto.setReason(reqResourceModel.getReason());
                 dto.setRequestDate(reqResourceModel.getRequestDate());
+
                 dto.setApprovalDate(reqResourceModel.getApprovalDate());
 
                 // Fetch Employee Name

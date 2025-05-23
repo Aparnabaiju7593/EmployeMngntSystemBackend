@@ -2,9 +2,12 @@ package com.OrganizationManagement.organizationManagement.EmployeeDto;
 
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+@CrossOrigin
 
 @AllArgsConstructor
 @NoArgsConstructor

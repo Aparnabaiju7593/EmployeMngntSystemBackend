@@ -12,6 +12,8 @@ import com.OrganizationManagement.organizationManagement.EmployeeDto.EmpDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.LateDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.LoginDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.RequestDto;
+import com.OrganizationManagement.organizationManagement.Hr.HrModel;
+import com.OrganizationManagement.organizationManagement.Hr.HrRepo;
 import com.OrganizationManagement.organizationManagement.Late.LateModel;
 import com.OrganizationManagement.organizationManagement.Late.LateRepo;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
@@ -55,6 +57,8 @@ public class AdminService {
     private DepResRepo depResRepo;
     @Autowired
     private ResouceRepo resouceRepo;
+    @Autowired
+    private HrRepo hrRepo;
 
     //   admin registration
 
@@ -73,6 +77,7 @@ public class AdminService {
     public ResponseEntity<?> login(RequestDto requestDto) {
         Optional<AdminModel> optionalAdminModel = adminRepo.findByEmailAndPassword(requestDto.getEmail(), requestDto.getPassword());
         Optional<EmployeeModel> optionalEmployeeModel = employeeRepo.findByEmailAndPassword(requestDto.getEmail(), requestDto.getPassword());
+        Optional<HrModel> optionalHrModel = hrRepo.findByEmailAndPassword(requestDto.getEmail(), requestDto.getPassword());
         if (optionalAdminModel.isPresent()) {
             AdminModel adminModel = optionalAdminModel.get();
 
@@ -98,9 +103,20 @@ public class AdminService {
             loginDto.setName(employeeModel.getName());
             return new ResponseEntity<>(loginDto, HttpStatus.OK);
 
-        } else {
-            return new ResponseEntity<>("Incorrect  login details", HttpStatus.BAD_REQUEST);
+        } else if (optionalHrModel.isPresent()) {
+            HrModel hrModel = optionalHrModel.get();
+            LoginDto loginDto = new LoginDto();
+            loginDto.setId(hrModel.getHrId());
+            Optional<RoleModel> roleModelOptional = roleRepo.findById(hrModel.getRoleId());
+            if (roleModelOptional.isPresent()) {
+                RoleModel roleModel = roleModelOptional.get();
+                loginDto.setRole(roleModel.getRole());
+            }
+            loginDto.setName(hrModel.getName());
+            return new ResponseEntity<>(loginDto, HttpStatus.OK);
+
         }
+            return new ResponseEntity<>("Incorrect  login details", HttpStatus.BAD_REQUEST);
     }
 //designation name
 

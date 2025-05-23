@@ -156,6 +156,7 @@ public class EmployeeService {
 
         List<TaskDto> taskDtoList = taskModelList.stream().map(taskModel -> {
             TaskDto taskDto = new TaskDto();
+            taskDto.setTaskId(taskModel.getTaskId());
             taskDto.setTaskName(taskModel.getTaskName());
             taskDto.setDescription(taskModel.getDescription());
             taskDto.setStartDate(taskModel.getStartDate());
@@ -243,6 +244,23 @@ public class EmployeeService {
 
     }
 
+
+    public ResponseEntity<?> updatetaskStatus(Long taskId, Long statusId) {
+        Optional<TaskModel> taskModelOptional = taskRepo.findById(taskId);
+
+        if (taskModelOptional.isPresent()) {
+            TaskModel taskModel = taskModelOptional.get();
+
+            // Optional: Check if the statusId is valid (e.g., in statusRepo)
+
+            taskModel.setStatusId(statusId);
+            taskRepo.save(taskModel);
+
+            return new ResponseEntity<>("Task status updated successfully", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("Task not found", HttpStatus.NOT_FOUND);
+        }
+    }
 
 }
 

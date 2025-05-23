@@ -3,10 +3,12 @@ package com.OrganizationManagement.organizationManagement.EmployeeDto;
 import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+@CrossOrigin
 @AllArgsConstructor
 @NoArgsConstructor
 public class ResourceDto {
@@ -19,6 +21,15 @@ public class ResourceDto {
     private LocalDateTime approvalDate;
     private LocalDate requestDate;
     private String employee;
+    private Long employeeId;
+
+    public Long getEmployeeId() {
+        return employeeId;
+    }
+
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
+    }
 
     public Long getReqResourceId() {
         return reqResourceId;

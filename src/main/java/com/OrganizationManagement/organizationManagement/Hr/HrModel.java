@@ -16,14 +16,29 @@ public class HrModel {
     @Column(name = "departmentId")
     private Long departmentId;
 
-    @Column(name = "hrName")
-    private String hrName;
+    @Column(name = "roleId")
+    private Long roleId;
+
+    @Column(name = "Name")
+    private String name;
 
     @Column(name = "email")
     private String email;
 
     @Column(name = "password")
     private String password;
+
+    public HrModel(){
+        this.roleId=3L;
+    }
+
+    public Long getRoleId() {
+        return roleId;
+    }
+
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
+    }
 
     public Long getHrId() {
         return hrId;
@@ -41,12 +56,13 @@ public class HrModel {
         this.departmentId = departmentId;
     }
 
-    public String getHrName() {
-        return hrName;
+
+    public String getName() {
+        return name;
     }
 
-    public void setHrName(String hrName) {
-        this.hrName = hrName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

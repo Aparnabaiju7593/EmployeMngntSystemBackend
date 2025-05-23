@@ -111,6 +111,17 @@ public class EmployeeController {
     public ResponseEntity<?>getLateview(@RequestParam Long employeeId){
         return employeeService.getLateView(employeeId);
     }
+    @PutMapping("/updateTaskstatus")
+    public ResponseEntity<?> updateTaskStatus(@RequestParam Long taskId, @RequestParam Long statusId) {
+        try {
+            return employeeService.updatetaskStatus(taskId, statusId);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>("Something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 
 
