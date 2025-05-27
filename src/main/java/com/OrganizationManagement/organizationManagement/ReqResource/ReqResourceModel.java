@@ -22,6 +22,9 @@ public class ReqResourceModel {
     @Column(name = "resourceId")
     private Long resourceId;
 
+    @Column(name = "departmentId")
+    private Long departmentId;
+
     @Column(name = "reason")
     private String reason;
 
@@ -47,7 +50,13 @@ public class ReqResourceModel {
 
     }
 
+    public Long getDepartmentId() {
+        return departmentId;
+    }
 
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;

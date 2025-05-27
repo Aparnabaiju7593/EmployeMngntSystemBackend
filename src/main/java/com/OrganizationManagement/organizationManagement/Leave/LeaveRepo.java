@@ -10,4 +10,6 @@ public interface LeaveRepo extends JpaRepository<LeaveModel,Long> {
   //  List<LeaveModel> findAllByEmployeeId();
 
     List<LeaveModel> findByEmployeeId(Long employeeId);
+
+    List<LeaveModel> findByDepartmentId(Long departmentId);
 }

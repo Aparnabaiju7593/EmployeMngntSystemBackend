@@ -67,6 +67,8 @@ public class EmployeeService {
         employeeRepo.save(employeeModel1);
         return new ResponseEntity<>(employeeModel1, HttpStatus.OK);
     }
+
+
     //leave
 
     public ResponseEntity<?> leavestatus(LeaveModel leaveModel) {
@@ -77,6 +79,7 @@ public class EmployeeService {
         leaveModel1.setReason(leaveModel.getReason());
         leaveModel1.setEmployeeId(leaveModel.getEmployeeId());
         leaveModel1.setStatusId(leaveModel.getStatusId());
+        leaveModel1.setDepartmentId(leaveModel.getDepartmentId());
         // leaveModel1.setTimestamp(leaveModel.getTimestamp());
 
         leaveRepo.save(leaveModel1);
@@ -103,6 +106,7 @@ public class EmployeeService {
         ReqResourceModel reqResourceModel1 = new ReqResourceModel();
         reqResourceModel1.setResourceId(reqResourceModel.getResourceId());
         reqResourceModel1.setEmployeeId(reqResourceModel.getEmployeeId());
+        reqResourceModel1.setDepartmentId(reqResourceModel.getDepartmentId());
         reqResourceModel1.setReason(reqResourceModel.getReason());
         reqResourceModel1.setQuantity(reqResourceModel.getQuantity());
         reqResourceModel1.setRequestDate(reqResourceModel.getRequestDate());
@@ -244,7 +248,7 @@ public class EmployeeService {
 
     }
 
-
+//update
     public ResponseEntity<?> updatetaskStatus(Long taskId, Long statusId) {
         Optional<TaskModel> taskModelOptional = taskRepo.findById(taskId);
 

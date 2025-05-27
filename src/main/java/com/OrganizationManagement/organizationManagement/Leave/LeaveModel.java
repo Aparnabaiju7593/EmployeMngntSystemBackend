@@ -32,6 +32,9 @@ public class LeaveModel {
     @Column(name = "statusId")
     private Long statusId;
 
+    @Column(name = "departmentId")
+    private Long departmentId;
+
 //    @Column(name = "timeStamp")
 //    private LocalDateTime timestamp;
 //
@@ -43,6 +46,14 @@ public class LeaveModel {
 //        this.timestamp = timestamp;
 //    }
 
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public Long getLeaveId() {
         return leaveId;

@@ -95,6 +95,8 @@ public class AdminService {
 
             LoginDto loginDto = new LoginDto();
             loginDto.setId(employeeModel.getEmployeeId());
+            loginDto.setDepartmentId(employeeModel.getDepartmentId());
+
             Optional<RoleModel> roleModelOptional = roleRepo.findById(employeeModel.getRoleId());
             if (roleModelOptional.isPresent()) {
                 RoleModel roleModel = roleModelOptional.get();
@@ -107,6 +109,7 @@ public class AdminService {
             HrModel hrModel = optionalHrModel.get();
             LoginDto loginDto = new LoginDto();
             loginDto.setId(hrModel.getHrId());
+            loginDto.setDepartmentId(hrModel.getDepartmentId());
             Optional<RoleModel> roleModelOptional = roleRepo.findById(hrModel.getRoleId());
             if (roleModelOptional.isPresent()) {
                 RoleModel roleModel = roleModelOptional.get();
@@ -256,6 +259,7 @@ public class AdminService {
 
 
     //get employee
+
     public ResponseEntity<List<EmpDto>> getEmployeesData(Long designationId) {
         List<EmployeeModel> employeeModelList = employeeRepo.findByDesignationId(designationId);
 
@@ -299,6 +303,7 @@ public class AdminService {
 
     }
 //get status
+
     public ResponseEntity<?> getStatus(Long statusId) {
         List<StatusModel>statusModelList=statusRepo.findByStatusId(statusId);
         if (statusModelList.isEmpty()){
@@ -309,6 +314,7 @@ public class AdminService {
     }
 
     //get department
+
     public ResponseEntity<?> getDepartment(Long departmentId) {
         List<DepartmentModel>departmentModelList=departmentRepo.findByDepartmentId(departmentId);
         if (departmentModelList.isEmpty()){
@@ -333,6 +339,11 @@ public class AdminService {
     public ResponseEntity<List<ResourceModel>> getAllResources() {
         List<ResourceModel>resourceModelList=resouceRepo.findAll();
         return new ResponseEntity<>(resourceModelList,HttpStatus.OK);
+    }
+//get all employee
+    public ResponseEntity<List<EmployeeModel>> getAllEmployees() {
+        List<EmployeeModel>employeeModelList=employeeRepo.findByRoleId(2);
+        return new ResponseEntity<>(employeeModelList,HttpStatus.OK);
     }
 }
 

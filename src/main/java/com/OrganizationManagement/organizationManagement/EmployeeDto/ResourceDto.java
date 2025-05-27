@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 public class ResourceDto {
 
     private Long reqResourceId;
+    private Long departmentId;
     private String resource;
     private Integer quantity;
     private String reason;
@@ -22,6 +23,14 @@ public class ResourceDto {
     private LocalDate requestDate;
     private String employee;
     private Long employeeId;
+
+    public Long getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(Long departmentId) {
+        this.departmentId = departmentId;
+    }
 
     public Long getEmployeeId() {
         return employeeId;

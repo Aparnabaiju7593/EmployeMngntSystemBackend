@@ -55,7 +55,7 @@ public class EmployeeController {
 
     // request resource
 
-    @PostMapping(path = "reqResource")
+    @PostMapping(path = "/reqResource")
     public ResponseEntity<?>requestres(@RequestBody ReqResourceModel reqResourceModel){
         try {
             return employeeService.reqResource(reqResourceModel);

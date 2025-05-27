@@ -190,10 +190,10 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
 
 //get all task details dto
 
-    @GetMapping(path = "/getTaskDto")
-    public ResponseEntity<List<TaskDto>>getAllTaskData(){
-        return departmentService.getAllTask();
-    }
+@GetMapping(path = "/getTaskDto")
+public ResponseEntity<List<TaskDto>> getAllTaskData() {
+    return departmentService.getAllTask();
+}
 
 
     //update statusid task by taskId
@@ -220,6 +220,7 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 //update late statusid
+
     @PutMapping(path = "/lateStatusIdUpdate")
     public ResponseEntity<?>upLateStatus(@RequestParam Long lateId,@RequestParam Long statusId){
         try {
@@ -229,10 +230,19 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
         }
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    //get all resources
+
     @GetMapping(path = "/getResource")
-    public ResponseEntity<List<ResourceDto>>getAllResource(){
-        return departmentService.getAllResource();
+    public ResponseEntity<List<ResourceDto>>getAllResource(@RequestParam Long departmentId){
+        return departmentService.getAllResource(departmentId);
     }
 
+    //get all leave by dep
+
+    @GetMapping("/getLeaveDep")
+    public ResponseEntity<?>getLeaveDep(@RequestParam Long departmentId){
+        return departmentService.getLeaveDep(departmentId);
+    }
 
 }

@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface ReqResourceRepo extends JpaRepository<ReqResourceModel,Long> {
     List<ReqResourceModel> findByEmployeeId(Long employeeId); // Returns all matching records
+
+    List<ReqResourceModel> findByDepartmentId(Long departmentId);
 }
