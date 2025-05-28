@@ -11,4 +11,7 @@ public interface ReqResourceRepo extends JpaRepository<ReqResourceModel,Long> {
     List<ReqResourceModel> findByEmployeeId(Long employeeId); // Returns all matching records
 
     List<ReqResourceModel> findByDepartmentId(Long departmentId);
+
+    Optional<ReqResourceModel> findByReqResourceIdAndEmployeeId(Long reqResourceId, Long employeeId);
+
 }

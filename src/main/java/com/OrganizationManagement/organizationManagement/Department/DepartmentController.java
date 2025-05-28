@@ -114,6 +114,17 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
     }
 
 
+    @PutMapping(path = "/addApprovals")
+    public ResponseEntity<?>addApprovals(@RequestParam Long reqResourceId,@RequestParam Long employeeId, @RequestParam Long statusId){
+        try {
+            return departmentService.addApprovals(reqResourceId,employeeId,statusId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+
     //add dep resource request
 
 //    @PostMapping(path = "DepreqResource")
@@ -244,5 +255,29 @@ public ResponseEntity<List<TaskDto>> getAllTaskData() {
     public ResponseEntity<?>getLeaveDep(@RequestParam Long departmentId){
         return departmentService.getLeaveDep(departmentId);
     }
+    //get by hr leave reqestdto
+
+    @GetMapping(path = "/getLeaveDtobydep")
+    public ResponseEntity<List<LeaveDto>>getAllLeaveDatabydep(@RequestParam Long departmentId){
+        return departmentService.getAllLeaveDatabydep(departmentId);
+    }
+    //get by hr request dto
+
+    @GetMapping(path = "/getAllLateDtobydep")
+    public ResponseEntity<List<LateDto>>getAllLateDatabydep(@RequestParam Long departmentId){
+        return  departmentService.getAllLateDatabydep(departmentId);
+
+    }
+    //approve leave
+    @PutMapping(path = "/addApprovaleave")
+    public ResponseEntity<?>addApprovalsleave(@RequestParam Long leaveId, @RequestParam Long statusId){
+        try {
+            return departmentService.addApprovalsleave(leaveId,statusId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 
 }

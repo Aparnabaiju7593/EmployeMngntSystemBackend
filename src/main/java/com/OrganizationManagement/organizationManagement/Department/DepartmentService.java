@@ -289,33 +289,64 @@ public class DepartmentService {
 
 //get all leave request dto
 
+//    public ResponseEntity<List<LeaveDto>> getAllLeave() {
+//        List<LeaveDto>leaveDtos=new ArrayList<>();
+//        List<LeaveModel>leaveModelList=leaveRepo.findAll();
+//        if (!leaveModelList.isEmpty()){
+//            for (LeaveModel leaveModel:leaveModelList){
+//                LeaveDto leaveDto= new LeaveDto();
+//                leaveDto.setLeaveId(leaveModel.getLeaveId());
+//                leaveDto.setEmployeeId(leaveModel.getEmployeeId());
+//                leaveDto.setReason(leaveModel.getReason());
+//                leaveDto.setStartDate(leaveModel.getStartDate());
+//                leaveDto.setEndDate(leaveModel.getEndDate());
+//                Optional<EmployeeModel>employeeModelOptional=employeeRepo.findById(leaveModel.getEmployeeId());
+//                if (employeeModelOptional.isPresent()){
+//                    EmployeeModel employeeModel=employeeModelOptional.get();
+//                    leaveDto.setEmployeeName(employeeModel.getName());
+//                }
+//                Optional<StatusModel>statusModelOptional=statusRepo.findById(leaveModel.getStatusId());
+//                if (statusModelOptional.isPresent()){
+//                    StatusModel statusModel=statusModelOptional.get();
+//                    leaveDto.setStatus(statusModel.getStatusName());
+//                }
+//                leaveDtos.add(leaveDto);
+//            }
+//            return new ResponseEntity<>(leaveDtos,HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
+//    }
+
     public ResponseEntity<List<LeaveDto>> getAllLeave() {
-        List<LeaveDto>leaveDtos=new ArrayList<>();
-        List<LeaveModel>leaveModelList=leaveRepo.findAll();
-        if (!leaveModelList.isEmpty()){
-            for (LeaveModel leaveModel:leaveModelList){
-                LeaveDto leaveDto= new LeaveDto();
-                leaveDto.setLeaveId(leaveModel.getLeaveId());
-                leaveDto.setEmployeeId(leaveModel.getEmployeeId());
-                leaveDto.setReason(leaveModel.getReason());
-                leaveDto.setStartDate(leaveModel.getStartDate());
-                leaveDto.setEndDate(leaveModel.getEndDate());
-                Optional<EmployeeModel>employeeModelOptional=employeeRepo.findById(leaveModel.getEmployeeId());
-                if (employeeModelOptional.isPresent()){
-                    EmployeeModel employeeModel=employeeModelOptional.get();
-                    leaveDto.setEmployeeName(employeeModel.getName());
-                }
-                Optional<StatusModel>statusModelOptional=statusRepo.findById(leaveModel.getStatusId());
-                if (statusModelOptional.isPresent()){
-                    StatusModel statusModel=statusModelOptional.get();
-                    leaveDto.setStatus(statusModel.getStatusName());
-                }
-                leaveDtos.add(leaveDto);
+        List<LeaveDto> leaveDtos = new ArrayList<>();
+        List<LeaveModel> leaveModelList = leaveRepo.findAll();
+
+        for (LeaveModel leaveModel : leaveModelList) {
+            LeaveDto leaveDto = new LeaveDto();
+            leaveDto.setLeaveId(leaveModel.getLeaveId());
+            leaveDto.setEmployeeId(leaveModel.getEmployeeId());
+            leaveDto.setReason(leaveModel.getReason());
+            leaveDto.setStartDate(leaveModel.getStartDate());
+            leaveDto.setEndDate(leaveModel.getEndDate());
+
+            // Safe employee lookup
+            if (leaveModel.getEmployeeId() != null) {
+                employeeRepo.findById(leaveModel.getEmployeeId())
+                        .ifPresent(employee -> leaveDto.setEmployeeName(employee.getName()));
             }
-            return new ResponseEntity<>(leaveDtos,HttpStatus.OK);
+
+            // Safe status lookup
+            if (leaveModel.getStatusId() != null) {
+                statusRepo.findById(leaveModel.getStatusId())
+                        .ifPresent(status -> leaveDto.setStatus(status.getStatusName()));
+            }
+
+            leaveDtos.add(leaveDto);
         }
-        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
+
+        return ResponseEntity.ok(leaveDtos);
     }
+
 
     //get all task by dto
 
@@ -483,7 +514,97 @@ public class DepartmentService {
         return new ResponseEntity<>(leaveDtoList, HttpStatus.OK);
     }
 
+    public ResponseEntity<List<LeaveDto>> getAllLeaveDatabydep(Long departmentId) {
+        List<LeaveDto> leaveDtos = new ArrayList<>();
+        List<LeaveModel> leaveModelList = leaveRepo.findByDepartmentId(departmentId);
 
+        for (LeaveModel leaveModel : leaveModelList) {
+            LeaveDto leaveDto = new LeaveDto();
+            leaveDto.setLeaveId(leaveModel.getLeaveId());
+            leaveDto.setEmployeeId(leaveModel.getEmployeeId());
+            leaveDto.setReason(leaveModel.getReason());
+            leaveDto.setStartDate(leaveModel.getStartDate());
+            leaveDto.setEndDate(leaveModel.getEndDate());
+
+            // Safe employee lookup
+            if (leaveModel.getEmployeeId() != null) {
+                employeeRepo.findById(leaveModel.getEmployeeId())
+                        .ifPresent(employee -> leaveDto.setEmployeeName(employee.getName()));
+            }
+
+            // Safe status lookup
+            if (leaveModel.getStatusId() != null) {
+                statusRepo.findById(leaveModel.getStatusId())
+                        .ifPresent(status -> leaveDto.setStatus(status.getStatusName()));
+            }
+
+            leaveDtos.add(leaveDto);
+        }
+
+        return ResponseEntity.ok(leaveDtos);
+    }
+
+    //get late hr view
+    public ResponseEntity<List<LateDto>> getAllLateDatabydep(Long departmentId) {
+        List<LateDto> lateDtos= new ArrayList<>();
+        List<LateModel>lateModelList= lateRepo.findByDepartmentId(departmentId);
+        if (!lateModelList.isEmpty()){
+            for (LateModel lateModel:lateModelList){
+                LateDto lateDto=new LateDto();
+                lateDto.setLateId(lateModel.getLateId());
+//                lateDto.setDepartmentId(lateModel.getDepartmentId());
+//                lateDto.setEmployeeId(lateModel.getLateId());
+                lateDto.setLateDate(lateModel.getLateDate());
+                lateDto.setReason(lateModel.getReason());
+                lateDto.setSubmittedTime(lateModel.getSubmittedTime());
+                Optional<EmployeeModel>employeeModelOptional=employeeRepo.findById(lateModel.getEmployeeId());
+                if (employeeModelOptional.isPresent()){
+
+                    EmployeeModel employeeModel=employeeModelOptional.get();
+                    lateDto.setEmployeeName(employeeModel.getName());
+                }
+                Optional<DepartmentModel>departmentModelOptional=departmentRepo.findById(lateModel.getDepartmentId());
+                if (departmentModelOptional.isPresent()){
+                    DepartmentModel departmentModel=departmentModelOptional.get();
+                    lateDto.setDepartment(departmentModel.getDepartment());
+                }
+                Optional<StatusModel>statusModelOptional=statusRepo.findById(lateModel.getStatusId());
+                if (statusModelOptional.isPresent()){
+                    StatusModel statusModel= statusModelOptional.get();
+                    lateDto.setStatus(statusModel.getStatusName());
+                }
+                lateDtos.add(lateDto);
+
+            }
+            return new ResponseEntity<>(lateDtos,HttpStatus.OK);
+
+        }
+        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
+    }
+
+    public ResponseEntity<?> addApprovals(Long reqResourceId, Long employeeId, Long statusId) {
+        Optional<ReqResourceModel> reqResourceModelOptional=reqResourceRepo.findByReqResourceIdAndEmployeeId(reqResourceId,employeeId);
+        if (reqResourceModelOptional.isPresent()){
+            ReqResourceModel reqResourceModel=reqResourceModelOptional.get();
+            reqResourceModel.setStatusId(statusId);
+            reqResourceModel.setApprovalDate(LocalDateTime.now());
+            reqResourceRepo.save(reqResourceModel);
+            return new ResponseEntity<>(reqResourceModel,HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Request resourceid not found",HttpStatus.NOT_FOUND);
+    }
+
+    public ResponseEntity<?> addApprovalsleave(Long leaveId, Long statusId) {
+        Optional<LeaveModel> leaveModelOptional=leaveRepo.findById(leaveId);
+        if (leaveModelOptional.isPresent()){
+            LeaveModel leaveModel=leaveModelOptional.get();
+            leaveModel.setStatusId(statusId);
+
+            leaveRepo.save(leaveModel);
+            return new ResponseEntity<>(leaveModel,HttpStatus.OK);
+        }
+        return new ResponseEntity<>("leave id not found",HttpStatus.NOT_FOUND);
+    }
 
 
     //department request resources
