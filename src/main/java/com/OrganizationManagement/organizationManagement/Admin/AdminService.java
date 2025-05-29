@@ -8,16 +8,15 @@ import com.OrganizationManagement.organizationManagement.Designation.Designation
 import com.OrganizationManagement.organizationManagement.Designation.DesignationRepo;
 import com.OrganizationManagement.organizationManagement.Employee.EmployeeModel;
 import com.OrganizationManagement.organizationManagement.Employee.EmployeeRepo;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.EmpDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.LateDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.LoginDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.RequestDto;
+import com.OrganizationManagement.organizationManagement.EmployeeDto.*;
 import com.OrganizationManagement.organizationManagement.Hr.HrModel;
 import com.OrganizationManagement.organizationManagement.Hr.HrRepo;
 import com.OrganizationManagement.organizationManagement.Late.LateModel;
 import com.OrganizationManagement.organizationManagement.Late.LateRepo;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveRepo;
+import com.OrganizationManagement.organizationManagement.ReqResource.ReqResourceModel;
+import com.OrganizationManagement.organizationManagement.ReqResource.ReqResourceRepo;
 import com.OrganizationManagement.organizationManagement.Resource.ResouceRepo;
 import com.OrganizationManagement.organizationManagement.Resource.ResourceModel;
 import com.OrganizationManagement.organizationManagement.Role.RoleModel;
@@ -59,6 +58,8 @@ public class AdminService {
     private ResouceRepo resouceRepo;
     @Autowired
     private HrRepo hrRepo;
+    @Autowired
+    private ReqResourceRepo reqResourceRepo;
 
     //   admin registration
 
@@ -72,7 +73,7 @@ public class AdminService {
         adminRepo.save(adminModel1);
         return new ResponseEntity<>(adminModel1, HttpStatus.OK);
     }
-    //login admin and employee
+    //login admin and employee and hr
 
     public ResponseEntity<?> login(RequestDto requestDto) {
         Optional<AdminModel> optionalAdminModel = adminRepo.findByEmailAndPassword(requestDto.getEmail(), requestDto.getPassword());
@@ -304,8 +305,8 @@ public class AdminService {
     }
 //get status
 
-    public ResponseEntity<?> getStatus(Long statusId) {
-        List<StatusModel>statusModelList=statusRepo.findByStatusId(statusId);
+    public ResponseEntity<?> getStatus() {
+        List<StatusModel>statusModelList=statusRepo.findAll();
         if (statusModelList.isEmpty()){
             return new ResponseEntity<>("not found status ",HttpStatus.NOT_FOUND);
 
@@ -344,6 +345,56 @@ public class AdminService {
     public ResponseEntity<List<EmployeeModel>> getAllEmployees() {
         List<EmployeeModel>employeeModelList=employeeRepo.findByRoleId(2);
         return new ResponseEntity<>(employeeModelList,HttpStatus.OK);
+    }
+
+    public ResponseEntity<List<ResourceDto>> admingetAllResource() {
+        List<ResourceDto> resourceDtoList = new ArrayList<>();
+        List<ReqResourceModel> reqResourceModelList = reqResourceRepo.findAll();
+
+        if (!reqResourceModelList.isEmpty()) {
+            for (ReqResourceModel reqResourceModel : reqResourceModelList) {
+                ResourceDto dto = new ResourceDto();
+                dto.setReqResourceId(reqResourceModel.getReqResourceId());
+                dto.setEmployeeId(reqResourceModel.getEmployeeId());
+                dto.setDepartmentId(reqResourceModel.getDepartmentId());
+                dto.setQuantity(reqResourceModel.getQuantity());
+                dto.setReason(reqResourceModel.getReason());
+                dto.setRequestDate(reqResourceModel.getRequestDate());
+
+                dto.setApprovalDate(reqResourceModel.getApprovalDate());
+
+                // Fetch Employee Name
+                employeeRepo.findById(reqResourceModel.getEmployeeId()).ifPresent(employeeModel ->
+                        dto.setEmployee(employeeModel.getName())
+                );
+
+                // Fetch Status Name
+                statusRepo.findById(reqResourceModel.getStatusId()).ifPresent(statusModel ->
+                        dto.setStatus(statusModel.getStatusName())
+                );
+//                //fetch
+//                departmentRepo.findById(reqResourceModel.getDepartmentId()).ifPresent(departmentModel ->
+//                        dto.setDepartment(departmentModel.getDepartment())
+//                );
+                if (reqResourceModel.getDepartmentId() != null) {
+                    departmentRepo.findById(reqResourceModel.getDepartmentId())
+                            .ifPresent(departmentModel -> dto.setDepartment(departmentModel.getDepartment()));
+                }
+
+
+
+
+
+                // Fetch Resource Name (Corrected)
+                resouceRepo.findById(reqResourceModel.getResourceId()).ifPresent(resourceModel ->
+                        dto.setResource(resourceModel.getResource())
+                );
+
+                resourceDtoList.add(dto);
+            }
+        }
+
+        return new ResponseEntity<>(resourceDtoList, HttpStatus.OK);
     }
 }
 

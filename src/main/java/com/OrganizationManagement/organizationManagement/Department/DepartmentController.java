@@ -69,7 +69,7 @@ public class DepartmentController {
          return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-         //list all employees
+         //list all designation
 
     @GetMapping(path ="getEmployee")
     public ResponseEntity<List<DesignationModel>>allEmployee(){
@@ -278,6 +278,21 @@ public ResponseEntity<List<TaskDto>> getAllTaskData() {
         }
         return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
+    //approve late
+    @PutMapping(path = "/addApprovalate")
+    public ResponseEntity<?>addApprovalslate(@RequestParam Long lateId, @RequestParam Long statusId){
+        try {
+            return departmentService.addApprovalslate(lateId,statusId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+    // hr get all employee
+// @GetMapping(path = "/getAll")
+//    public ResponseEntity<List<LateDto>>getAllLateDatabydep(@RequestParam Long departmentId){
+//        return  departmentService.getAllLateDatabydep(departmentId);
+//
+//    }
 
 }

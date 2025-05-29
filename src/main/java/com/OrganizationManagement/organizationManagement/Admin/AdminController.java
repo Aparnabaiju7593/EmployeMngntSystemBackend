@@ -8,6 +8,7 @@ import com.OrganizationManagement.organizationManagement.Employee.EmployeeServic
 import com.OrganizationManagement.organizationManagement.EmployeeDto.EmpDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.LateDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.RequestDto;
+import com.OrganizationManagement.organizationManagement.EmployeeDto.ResourceDto;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
 import com.OrganizationManagement.organizationManagement.Resource.ResourceModel;
 import com.OrganizationManagement.organizationManagement.Role.RoleModel;
@@ -43,7 +44,7 @@ public class AdminController {
     }
 
 
-    // Admin and employee  Login
+    // Admin and employee  and hr Login
 
     @PostMapping(path = "/login")
     public ResponseEntity<?>login(@RequestBody RequestDto requestDto){
@@ -192,8 +193,8 @@ public class AdminController {
     //get status by statusId
 
     @GetMapping(path = "/getStatus")
-    public ResponseEntity<?>getSatatus(@RequestParam Long statusId){
-        return adminService.getStatus(statusId);
+    public ResponseEntity<?>getSatatus(){
+        return adminService.getStatus();
     }
 //get department by departmentId
 
@@ -227,7 +228,12 @@ public class AdminController {
         return adminService.getAllEmployees();
     }
 
+    //get all resources
 
+    @GetMapping(path = "/admingetResource")
+    public ResponseEntity<List<ResourceDto>>admingetAllResource(){
+        return adminService.admingetAllResource();
+    }
 
 
 

@@ -23,6 +23,16 @@ public class ResourceDto {
     private LocalDate requestDate;
     private String employee;
     private Long employeeId;
+    private String department;
+
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
+    }
 
     public Long getDepartmentId() {
         return departmentId;

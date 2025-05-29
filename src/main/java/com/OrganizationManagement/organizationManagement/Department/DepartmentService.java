@@ -513,7 +513,7 @@ public class DepartmentService {
 
         return new ResponseEntity<>(leaveDtoList, HttpStatus.OK);
     }
-
+//getall leave by dep id
     public ResponseEntity<List<LeaveDto>> getAllLeaveDatabydep(Long departmentId) {
         List<LeaveDto> leaveDtos = new ArrayList<>();
         List<LeaveModel> leaveModelList = leaveRepo.findByDepartmentId(departmentId);
@@ -582,6 +582,8 @@ public class DepartmentService {
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
     }
 
+//resource approval
+
     public ResponseEntity<?> addApprovals(Long reqResourceId, Long employeeId, Long statusId) {
         Optional<ReqResourceModel> reqResourceModelOptional=reqResourceRepo.findByReqResourceIdAndEmployeeId(reqResourceId,employeeId);
         if (reqResourceModelOptional.isPresent()){
@@ -594,6 +596,8 @@ public class DepartmentService {
         return new ResponseEntity<>("Request resourceid not found",HttpStatus.NOT_FOUND);
     }
 
+//leave approval by hr
+
     public ResponseEntity<?> addApprovalsleave(Long leaveId, Long statusId) {
         Optional<LeaveModel> leaveModelOptional=leaveRepo.findById(leaveId);
         if (leaveModelOptional.isPresent()){
@@ -604,6 +608,19 @@ public class DepartmentService {
             return new ResponseEntity<>(leaveModel,HttpStatus.OK);
         }
         return new ResponseEntity<>("leave id not found",HttpStatus.NOT_FOUND);
+    }
+    //late approval by hr
+
+    public ResponseEntity<?> addApprovalslate(Long lateId, Long statusId) {
+        Optional<LateModel> lateModelOptional=lateRepo.findById(lateId);
+        if (lateModelOptional.isPresent()){
+            LateModel lateModel=lateModelOptional.get();
+            lateModel.setStatusId(statusId);
+
+            lateRepo.save(lateModel);
+            return new ResponseEntity<>(lateModel,HttpStatus.OK);
+        }
+        return new ResponseEntity<>("late id not found",HttpStatus.NOT_FOUND);
     }
 
 
