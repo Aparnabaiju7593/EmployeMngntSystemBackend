@@ -132,14 +132,14 @@ public class AdminController {
 
     //list all designation
 
-    @GetMapping(path = "getAllEmployee")
+    @GetMapping(path = "/getAllDesignation")
     public ResponseEntity<List<DesignationModel>>getAllEmp(){
         return adminService.getEmployees();
     }
 
     //list Leave request
 
-    @GetMapping(path ="getLeave")
+    @GetMapping(path ="/getLeave")
     public ResponseEntity<List<LeaveModel>>allLeave(){
         return adminService.getLeavereq();
     }
@@ -233,6 +233,17 @@ public class AdminController {
     @GetMapping(path = "/admingetResource")
     public ResponseEntity<List<ResourceDto>>admingetAllResource(){
         return adminService.admingetAllResource();
+    }
+    //update designation
+
+    @PutMapping(path = "/updateDesignation")
+    public ResponseEntity<?>updateDesignationName(@RequestParam Long employeeId,@RequestParam Long designationId){
+        try {
+            return adminService.updateDesignationName(employeeId,designationId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 

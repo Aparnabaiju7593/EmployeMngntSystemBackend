@@ -288,11 +288,10 @@ public ResponseEntity<List<TaskDto>> getAllTaskData() {
         }
         return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    // hr get all employee
-// @GetMapping(path = "/getAll")
-//    public ResponseEntity<List<LateDto>>getAllLateDatabydep(@RequestParam Long departmentId){
-//        return  departmentService.getAllLateDatabydep(departmentId);
-//
-//    }
+    //view employee list
+    @GetMapping(path = "/listEmployeesbyhr")
+    public ResponseEntity<List<EmployeeModel>>listEmployeesbyhr(){
+        return departmentService.listEmployeesbyhr();
+    }
 
 }

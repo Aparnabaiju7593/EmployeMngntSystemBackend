@@ -396,6 +396,19 @@ public class AdminService {
 
         return new ResponseEntity<>(resourceDtoList, HttpStatus.OK);
     }
+//update designation
+    public ResponseEntity<?> updateDesignationName(Long employeeId, Long designationId) {
+        Optional<EmployeeModel> employeeModelOptional = employeeRepo.findById(employeeId);
+        if (employeeModelOptional.isPresent()) {
+            EmployeeModel employeeModel = employeeModelOptional.get();
+            employeeModel.setDesignationId(designationId);
+           employeeRepo.save(employeeModel);
+            return new ResponseEntity<>("successfully designation updated", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);
+        }
+
+    }
 }
 
 
