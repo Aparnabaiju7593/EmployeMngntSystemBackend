@@ -1,6 +1,7 @@
 package com.OrganizationManagement.organizationManagement.Employee;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -16,6 +17,13 @@ public interface EmployeeRepo extends JpaRepository<EmployeeModel,Long> {
 
     List<EmployeeModel> findByDesignationId(Long designationId);
 
-    List<EmployeeModel> findByRoleId(long i);
+
+
+
+    List<EmployeeModel> findByDepartmentIdAndRoleId(Long departmentId, int i);
+
+    List<EmployeeModel> findByRoleIdNot(long l);
+
+
     // Optional<EmployeeModel> findByEmailAndPassword(String email, String password);
 }

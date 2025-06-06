@@ -290,8 +290,8 @@ public ResponseEntity<List<TaskDto>> getAllTaskData() {
     }
     //view employee list
     @GetMapping(path = "/listEmployeesbyhr")
-    public ResponseEntity<List<EmployeeModel>>listEmployeesbyhr(){
-        return departmentService.listEmployeesbyhr();
+    public ResponseEntity<List<EmployeeModel>>listEmployeesbyhr(@RequestParam Long departmentId){
+        return departmentService.listEmployeesbyhr(departmentId);
     }
 
 }

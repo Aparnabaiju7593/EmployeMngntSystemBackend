@@ -78,7 +78,6 @@ public class EmployeeService {
         leaveModel1.setEndDate(leaveModel.getEndDate());
         leaveModel1.setReason(leaveModel.getReason());
         leaveModel1.setEmployeeId(leaveModel.getEmployeeId());
-        leaveModel1.setStatusId(leaveModel.getStatusId());
         leaveModel1.setDepartmentId(leaveModel.getDepartmentId());
         // leaveModel1.setTimestamp(leaveModel.getTimestamp());
 

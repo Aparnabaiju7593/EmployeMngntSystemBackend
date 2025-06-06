@@ -45,7 +45,9 @@ public class LeaveModel {
 //    public void setTimestamp(LocalDateTime timestamp) {
 //        this.timestamp = timestamp;
 //    }
-
+    public LeaveModel(){
+        this.statusId=1L;
+    }
 
     public Long getDepartmentId() {
         return departmentId;

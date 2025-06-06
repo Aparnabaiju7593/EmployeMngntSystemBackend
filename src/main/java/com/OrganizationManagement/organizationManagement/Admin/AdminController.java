@@ -246,6 +246,25 @@ public class AdminController {
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+//    @PutMapping(path = "/updateStatus")
+//    public ResponseEntity<?>updateName(@RequestParam Long statusId,@RequestParam String statusName){
+//        try {
+//            return adminService.updateName(statusId,statusName);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+//    }
+    //update  resource
+    @PutMapping(path = "/updateResource")
+    public ResponseEntity<?>updateResource(@RequestParam Long resourceId,@RequestParam Integer quantity){
+        try {
+            return adminService.updateResource(resourceId,quantity);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 
 

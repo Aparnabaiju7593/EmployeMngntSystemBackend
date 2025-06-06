@@ -343,10 +343,10 @@ public class AdminService {
     }
 //get all employee
     public ResponseEntity<List<EmployeeModel>> getAllEmployees() {
-        List<EmployeeModel>employeeModelList=employeeRepo.findByRoleId(2);
+        List<EmployeeModel>employeeModelList=employeeRepo.findByRoleIdNot(1L);
         return new ResponseEntity<>(employeeModelList,HttpStatus.OK);
     }
-
+//get all resourse
     public ResponseEntity<List<ResourceDto>> admingetAllResource() {
         List<ResourceDto> resourceDtoList = new ArrayList<>();
         List<ReqResourceModel> reqResourceModelList = reqResourceRepo.findAll();
@@ -408,6 +408,21 @@ public class AdminService {
             return new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);
         }
 
+    }
+
+//update resource
+
+    public ResponseEntity<?> updateResource(Long resourceId,Integer quantity) {
+        Optional<ResourceModel>resourceModelOptional=resouceRepo.findById(resourceId);
+        if (resourceModelOptional.isPresent()){
+            ResourceModel resourceModel=resourceModelOptional.get();
+            resourceModel.setQuantity(quantity);
+            resouceRepo.save(resourceModel);
+            return new ResponseEntity<>("successfully quantity updated",HttpStatus.OK);
+
+        }else {
+            return new ResponseEntity<>("not found",HttpStatus.NOT_FOUND);
+        }
     }
 }
 

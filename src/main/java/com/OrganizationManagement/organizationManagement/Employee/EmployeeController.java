@@ -93,10 +93,10 @@ public class EmployeeController {
          //employee view task
 
     @GetMapping("/getEmployeeTask")
-    public ResponseEntity<List<TaskDto>> getTaskView(@RequestParam(required = false) Long employeeId) {
-        if (employeeId == null) {
-            return ResponseEntity.badRequest().body(Collections.emptyList());
-        }
+    public ResponseEntity<List<TaskDto>> getTaskView(@RequestParam Long employeeId) {
+//        if (employeeId == null) {
+//            return ResponseEntity.badRequest().body(Collections.emptyList());
+//        }
         return employeeService.getTaskView(employeeId);
     }
 //employee view leave

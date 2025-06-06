@@ -623,8 +623,8 @@ public class DepartmentService {
         return new ResponseEntity<>("late id not found",HttpStatus.NOT_FOUND);
     }
 //hr view employee list
-    public ResponseEntity<List<EmployeeModel>> listEmployeesbyhr() {
-        List<EmployeeModel>employeeModelList=employeeRepo.findByRoleId(2);
+    public ResponseEntity<List<EmployeeModel>> listEmployeesbyhr(Long departmentId) {
+        List<EmployeeModel>employeeModelList=employeeRepo.findByDepartmentIdAndRoleId(departmentId,2);
         return new ResponseEntity<>(employeeModelList,HttpStatus.OK);
     }
 
