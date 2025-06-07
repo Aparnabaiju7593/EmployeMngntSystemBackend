@@ -4,6 +4,7 @@ import com.OrganizationManagement.organizationManagement.Admin.AdminModel;
 import com.OrganizationManagement.organizationManagement.Department.DepartmentRepo;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.LateDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.LeaveDto;
+import com.OrganizationManagement.organizationManagement.EmployeeDto.ResourceDto;
 import com.OrganizationManagement.organizationManagement.EmployeeDto.TaskDto;
 import com.OrganizationManagement.organizationManagement.Late.LateModel;
 import com.OrganizationManagement.organizationManagement.Late.LateRepo;
@@ -11,6 +12,7 @@ import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveRepo;
 import com.OrganizationManagement.organizationManagement.ReqResource.ReqResourceModel;
 import com.OrganizationManagement.organizationManagement.ReqResource.ReqResourceRepo;
+import com.OrganizationManagement.organizationManagement.Resource.ResouceRepo;
 import com.OrganizationManagement.organizationManagement.Status.StatusModel;
 import com.OrganizationManagement.organizationManagement.Status.StatusRepo;
 import com.OrganizationManagement.organizationManagement.Task.TaskModel;
@@ -46,7 +48,8 @@ public class EmployeeService {
     private StatusRepo statusRepo;
     @Autowired
     private DepartmentRepo departmentRepo;
-
+    @Autowired
+    private ResouceRepo resouceRepo;
 //employee registration
 
     public ResponseEntity<?> employeeDetails(EmployeeModel employeeModel, MultipartFile employeeImage) throws IOException {
@@ -61,7 +64,7 @@ public class EmployeeService {
         //  employeeModel1.setRoleId(employeeModel.getRoleId());
         employeeModel1.setDepartmentId(employeeModel.getDepartmentId());
         employeeModel1.setJoinDate(employeeModel.getJoinDate());
-        employeeModel1.setRoleId(employeeModel.getRoleId());
+        employeeModel1.setRoleId(2L);
         //file upload(multipart)
         employeeModel1.setEmployeeImage(employeeImage.getBytes());
         employeeRepo.save(employeeModel1);
@@ -264,7 +267,54 @@ public class EmployeeService {
             return new ResponseEntity<>("Task not found", HttpStatus.NOT_FOUND);
         }
     }
+//view resources
+    public ResponseEntity<?> getEmployeeviewResource(Long employeeId) {
+        List<ResourceDto>resourceDtoList=new ArrayList<>();
+        List<ReqResourceModel>reqResourceModelList=reqResourceRepo.findByEmployeeId(employeeId);
+        if (!reqResourceModelList.isEmpty()){
+            for (ReqResourceModel reqResourceModel : reqResourceModelList){
+                ResourceDto dto =new ResourceDto();
+                dto.setReqResourceId(reqResourceModel.getReqResourceId());
+                dto.setEmployeeId(reqResourceModel.getEmployeeId());
+                dto.setDepartmentId(reqResourceModel.getDepartmentId());
+                dto.setQuantity(reqResourceModel.getQuantity());
+                dto.setReason(reqResourceModel.getReason());
+                dto.setRequestDate(reqResourceModel.getRequestDate());
+                dto.setApprovalDate(reqResourceModel.getApprovalDate());
+                dto.setRemarks(reqResourceModel.getRemarks());
+                // Fetch Resource Name (Corrected)
+                resouceRepo.findById(reqResourceModel.getResourceId()).ifPresent(resourceModel ->
+                        dto.setResource(resourceModel.getResource())
+                );
+                // Fetch Status Name
+                statusRepo.findById(reqResourceModel.getStatusId()).ifPresent(statusModel ->
+                        dto.setStatus(statusModel.getStatusName())
+                );
 
+                resourceDtoList.add(dto);
+
+
+            }
+        }
+
+        return new ResponseEntity<>(resourceDtoList, HttpStatus.OK);
+
+
+    }
+
+    public ResponseEntity<?> updaterole(Long employeeId) {
+        Optional<EmployeeModel>employeeModelOptional=employeeRepo.findById(employeeId);
+        if (employeeModelOptional.isPresent()){
+            EmployeeModel employeeModel=employeeModelOptional.get();
+            if (employeeModel.getRoleId() == 3L) {
+                return new ResponseEntity<>("Already an HR", HttpStatus.BAD_REQUEST);
+            }
+            employeeModel.setRoleId(3L);
+            employeeRepo.save(employeeModel);
+            return new ResponseEntity<>("Role Updated to Hr",HttpStatus.OK);
+        }
+        return new ResponseEntity<>("Employee not found",HttpStatus.NOT_FOUND);
+    }
 }
 
 

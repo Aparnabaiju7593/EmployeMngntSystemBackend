@@ -21,6 +21,8 @@ public class ResourceModel {
     @Column(name = "quantity")
     private Integer quantity;
 
+
+
 //    public Long getDepartmentId() {
 //        return departmentId;
 //    }

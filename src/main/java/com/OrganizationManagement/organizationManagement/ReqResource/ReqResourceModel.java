@@ -44,10 +44,21 @@ public class ReqResourceModel {
     @Column(name = "ApprovalDate")
     private LocalDateTime approvalDate;
 
+    @Column(name = "remarks")
+    private String remarks;
+
 
     public ReqResourceModel() {
         this.statusId = 1L;
 
+    }
+
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
     }
 
     public Long getDepartmentId() {

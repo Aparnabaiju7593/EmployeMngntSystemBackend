@@ -212,6 +212,7 @@ public class AdminController {
         return adminService.getAllDepartment();
 }
 
+
 //list roles
     @GetMapping(path = "/getAllRoles")
     public ResponseEntity<List<RoleModel>>getAll(){
@@ -224,7 +225,7 @@ public class AdminController {
     }
     //list employee
     @GetMapping(path = "/listEmployees")
-    public ResponseEntity<List<EmployeeModel>>getAllEmployees(){
+    public ResponseEntity<List<EmpDto>>getAllEmployees(){
         return adminService.getAllEmployees();
     }
 

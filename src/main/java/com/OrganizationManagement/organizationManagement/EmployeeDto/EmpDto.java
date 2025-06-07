@@ -16,8 +16,27 @@ public class EmpDto {
     private String name;
     private String email;
     private String designationName;
+    private String role;
 
     private Long phnno;
+    private byte[] employeeImage;
+
+    public byte[] getEmployeeImage() {
+        return employeeImage;
+    }
+
+    public void setEmployeeImage(byte[] employeeImage) {
+        this.employeeImage = employeeImage;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     private LocalDate joinDate;
 
     public String getDesignationName() {

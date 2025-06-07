@@ -113,11 +113,11 @@ public class DepartmentController {
 return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
+//add approval resources
     @PutMapping(path = "/addApprovals")
-    public ResponseEntity<?>addApprovals(@RequestParam Long reqResourceId,@RequestParam Long employeeId, @RequestParam Long statusId){
+    public ResponseEntity<?>addApprovals(@RequestParam Long reqResourceId,@RequestParam Long employeeId, @RequestParam Long statusId,@RequestParam String remarks){
         try {
-            return departmentService.addApprovals(reqResourceId,employeeId,statusId);
+            return departmentService.addApprovals(reqResourceId,employeeId,statusId,remarks);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -205,6 +205,13 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
 public ResponseEntity<List<TaskDto>> getAllTaskData() {
     return departmentService.getAllTask();
 }
+
+
+    @GetMapping(path = "/getTaskDtobyDep")
+    public ResponseEntity<List<TaskDto>> getTaskDtobyDep(@RequestParam Long departmentId) {
+
+        return departmentService.getTaskDtobyDep(departmentId);
+    }
 
 
     //update statusid task by taskId

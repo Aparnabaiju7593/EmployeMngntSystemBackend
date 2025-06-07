@@ -342,9 +342,39 @@ public class AdminService {
         return new ResponseEntity<>(resourceModelList,HttpStatus.OK);
     }
 //get all employee
-    public ResponseEntity<List<EmployeeModel>> getAllEmployees() {
+    public ResponseEntity<List<EmpDto>> getAllEmployees() {
         List<EmployeeModel>employeeModelList=employeeRepo.findByRoleIdNot(1L);
-        return new ResponseEntity<>(employeeModelList,HttpStatus.OK);
+        List<EmpDto>empDtoList=new ArrayList<>();
+        if (!employeeModelList.isEmpty()){
+            for (EmployeeModel employeeModel: employeeModelList) {
+
+                EmpDto empDto = new EmpDto();
+                empDto.setName(employeeModel.getName());
+                empDto.setEmail(employeeModel.getEmail());
+                empDto.setEmployeeId(employeeModel.getEmployeeId());
+                empDto.setPhnno(employeeModel.getPhnno());
+                empDto.setDepartmentName(employeeModel.getDepartmentName());
+                empDto.setEmployeeImage(employeeModel.getEmployeeImage());
+                empDto.setJoinDate(employeeModel.getJoinDate());
+                if (employeeModel.getRoleId() != null) {
+                    roleRepo.findById(employeeModel.getRoleId())
+                            .ifPresent(roleModel -> empDto.setRole(roleModel.getRole()));
+                }
+
+                // Check if Designation ID is not null
+                if (employeeModel.getDesignationId() != null) {
+                    designationRepo.findById(employeeModel.getDesignationId())
+                            .ifPresent(designationModel -> empDto.setDesignationName(designationModel.getDesignationName()));
+                }
+                empDtoList.add(empDto);
+            }
+
+
+        }
+
+        return new ResponseEntity<>(empDtoList,HttpStatus.OK);
+
+
     }
 //get all resourse
     public ResponseEntity<List<ResourceDto>> admingetAllResource() {

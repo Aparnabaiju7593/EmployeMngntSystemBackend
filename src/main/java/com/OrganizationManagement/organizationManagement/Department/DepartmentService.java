@@ -394,6 +394,50 @@ public class DepartmentService {
     }
 
 
+
+    public ResponseEntity<List<TaskDto>> getTaskDtobyDep(Long departmentId) {
+        List<TaskDto> taskDtos = new ArrayList<>();
+        List<TaskModel> taskModelList = taskRepo.findByDepartmentId(departmentId);
+
+        for (TaskModel taskModel : taskModelList) {
+            TaskDto taskDto = new TaskDto();
+
+            // Set basic task info
+            taskDto.setTaskId(taskModel.getTaskId());
+            taskDto.setDepartmentId(taskModel.getDepartmentId());
+            taskDto.setEmployeeId(taskModel.getEmployeeId());
+            taskDto.setTaskName(taskModel.getTaskName());
+            taskDto.setDescription(taskModel.getDescription());
+            taskDto.setStartDate(taskModel.getStartDate());
+            taskDto.setProgressTym(taskModel.getProgressTym());
+            taskDto.setCompleteTym(taskModel.getCompleteTym());
+
+            // Set employee name
+            taskModel.getEmployeeId(); // Ensure it's not null
+            if (taskModel.getEmployeeId() != null) {
+                employeeRepo.findById(taskModel.getEmployeeId())
+                        .ifPresent(emp -> taskDto.setEmployee(emp.getName()));
+            }
+
+            // Set department name
+            if (taskModel.getDepartmentId() != null) {
+                departmentRepo.findById(taskModel.getDepartmentId())
+                        .ifPresent(dept -> taskDto.setDepartment(dept.getDepartment()));
+            }
+
+            // Set status name
+            if (taskModel.getStatusId() != null) {
+                statusRepo.findById(taskModel.getStatusId())
+                        .ifPresent(status -> taskDto.setStatus(status.getStatusName()));
+            }
+
+            taskDtos.add(taskDto);
+        }
+
+        return new ResponseEntity<>(taskDtos, HttpStatus.OK);
+
+    }
+
     //department update statusid
 
     public ResponseEntity<?> updateStatus(Long taskId, Long statusId) {
@@ -455,6 +499,7 @@ public class DepartmentService {
                 dto.setReason(reqResourceModel.getReason());
                 dto.setRequestDate(reqResourceModel.getRequestDate());
 
+
                 dto.setApprovalDate(reqResourceModel.getApprovalDate());
 
                 // Fetch Employee Name
@@ -473,6 +518,10 @@ public class DepartmentService {
                 resouceRepo.findById(reqResourceModel.getResourceId()).ifPresent(resourceModel ->
                         dto.setResource(resourceModel.getResource())
                 );
+                resouceRepo.findById(reqResourceModel.getResourceId()).ifPresent(resourceModel ->
+                        dto.setAvailablequantity(resourceModel.getQuantity())
+                );
+
 
                 resourceDtoList.add(dto);
             }
@@ -584,12 +633,13 @@ public class DepartmentService {
 
 //resource approval
 
-    public ResponseEntity<?> addApprovals(Long reqResourceId, Long employeeId, Long statusId) {
+    public ResponseEntity<?> addApprovals(Long reqResourceId, Long employeeId, Long statusId,String remarks) {
         Optional<ReqResourceModel> reqResourceModelOptional=reqResourceRepo.findByReqResourceIdAndEmployeeId(reqResourceId,employeeId);
         if (reqResourceModelOptional.isPresent()){
             ReqResourceModel reqResourceModel=reqResourceModelOptional.get();
             reqResourceModel.setStatusId(statusId);
             reqResourceModel.setApprovalDate(LocalDateTime.now());
+            reqResourceModel.setRemarks(remarks);
             reqResourceRepo.save(reqResourceModel);
             return new ResponseEntity<>(reqResourceModel,HttpStatus.OK);
         }
@@ -627,6 +677,7 @@ public class DepartmentService {
         List<EmployeeModel>employeeModelList=employeeRepo.findByDepartmentIdAndRoleId(departmentId,2);
         return new ResponseEntity<>(employeeModelList,HttpStatus.OK);
     }
+
 
 
     //department request resources

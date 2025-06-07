@@ -111,6 +111,9 @@ public class EmployeeController {
     public ResponseEntity<?>getLateview(@RequestParam Long employeeId){
         return employeeService.getLateView(employeeId);
     }
+
+    //update task status
+
     @PutMapping("/updateTaskstatus")
     public ResponseEntity<?> updateTaskStatus(@RequestParam Long taskId, @RequestParam Long statusId) {
         try {
@@ -121,6 +124,22 @@ public class EmployeeController {
         }
     }
 
+//        //resource view
+    @GetMapping("/getEmployeeviewResource")
+    public ResponseEntity<?>getEmployeeviewResource(@RequestParam Long employeeId){
+        return employeeService.getEmployeeviewResource(employeeId);
+    }
+
+
+    @PutMapping("/updaterole")
+    public ResponseEntity<?>updaterole(@RequestParam Long employeeId){
+        try {
+            return employeeService.updaterole(employeeId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 
 
 

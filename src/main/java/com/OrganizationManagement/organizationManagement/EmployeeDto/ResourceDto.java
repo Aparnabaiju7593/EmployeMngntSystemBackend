@@ -24,7 +24,24 @@ public class ResourceDto {
     private String employee;
     private Long employeeId;
     private String department;
+    private Integer availablequantity;
+    private String remarks;
 
+    public String getRemarks() {
+        return remarks;
+    }
+
+    public void setRemarks(String remarks) {
+        this.remarks = remarks;
+    }
+
+    public Integer getAvailablequantity() {
+        return availablequantity;
+    }
+
+    public void setAvailablequantity(Integer availablequantity) {
+        this.availablequantity = availablequantity;
+    }
 
     public String getDepartment() {
         return department;
