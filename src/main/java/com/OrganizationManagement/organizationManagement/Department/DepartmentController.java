@@ -4,10 +4,7 @@ import com.OrganizationManagement.organizationManagement.DepResource.DepResModel
 import com.OrganizationManagement.organizationManagement.Designation.DesignationModel;
 import com.OrganizationManagement.organizationManagement.Employee.EmployeeModel;
 import com.OrganizationManagement.organizationManagement.Employee.EmployeeService;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.LateDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.LeaveDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.ResourceDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.TaskDto;
+import com.OrganizationManagement.organizationManagement.EmployeeDto.*;
 import com.OrganizationManagement.organizationManagement.Late.LateModel;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveRepo;
@@ -45,6 +42,7 @@ public class DepartmentController {
         }
         return new ResponseEntity<>("something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
      //department accept reject
 
     @GetMapping(path = "/lateReject")
@@ -57,7 +55,7 @@ public class DepartmentController {
         return new ResponseEntity<>("Something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-        //task add
+    //task add
 
     @PostMapping(path = "/addTask")
     public ResponseEntity<?>TaskAdd(@RequestBody TaskModel taskModel){
@@ -69,7 +67,7 @@ public class DepartmentController {
          return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-         //list all designation
+    //list all designation
 
     @GetMapping(path ="getEmployee")
     public ResponseEntity<List<DesignationModel>>allEmployee(){
@@ -90,7 +88,7 @@ public class DepartmentController {
         return departmentService.getLateReq();
     }
 
-//add resources
+    //add resources
 
     @PostMapping(path = "/addResources")
     public ResponseEntity<?>ResourceAdd(@RequestBody ResourceModel resourceModel){
@@ -101,6 +99,7 @@ public class DepartmentController {
         }
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     //approved or rejected resouces update
 
     @PutMapping(path = "/addApproval")
@@ -110,10 +109,11 @@ public class DepartmentController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
+       return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-//add approval resources
+    //add approval resources
+
     @PutMapping(path = "/addApprovals")
     public ResponseEntity<?>addApprovals(@RequestParam Long reqResourceId,@RequestParam Long employeeId, @RequestParam Long statusId,@RequestParam String remarks){
         try {
@@ -124,30 +124,17 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
         return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
+    //get all department
 
-    //add dep resource request
-
-//    @PostMapping(path = "DepreqResource")
-//    public ResponseEntity<?>Depreq(@RequestBody ReqResDepModel reqResDepModel){
-//        try {
-//           return departmentService.resourceDep(reqResDepModel);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
-//
-//    }
-
-//get all department
     @GetMapping(path = "listdepartment")
     public ResponseEntity<List<DepartmentModel>>getAllDep(){
         return departmentService.getAllDep();
     }
 
 
-//update department
+    //update department
 
-@PutMapping(path = "/updateDep")
+    @PutMapping(path = "/updateDep")
     public ResponseEntity<?>updateDepmt(@RequestParam Long departmentId,@RequestParam String department){
         try {
             return departmentService.updateDepmt(departmentId,department);
@@ -157,7 +144,8 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
- //delete department
+    //delete department
+
     @DeleteMapping(path = "/deleteDep")
     public ResponseEntity<?>deleteDep(@RequestParam Long departmentId){
         return departmentService.deleteDep(departmentId);
@@ -169,13 +157,13 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
     public ResponseEntity<?>getEmployeeDetail(@RequestParam Long designationId){
         return departmentService.getEmployeeDetail(designationId);
     }
-//department get late request by departmentId
+
+    //department get late request by departmentId
 
     @GetMapping(path = "/getlateRequest")
     public ResponseEntity<?>getlateRequest(@RequestParam Long departmentId){
         return departmentService.getLateRequest(departmentId);
     }
-
 
     //list resources
 
@@ -199,13 +187,14 @@ return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_E
         return departmentService.getAllLeave();
     }
 
-//get all task details dto
+    //get all task details dto
 
-@GetMapping(path = "/getTaskDto")
-public ResponseEntity<List<TaskDto>> getAllTaskData() {
-    return departmentService.getAllTask();
-}
+    @GetMapping(path = "/getTaskDto")
+    public ResponseEntity<List<TaskDto>> getAllTaskData() {
+        return departmentService.getAllTask();
+    }
 
+    //get all task by dep
 
     @GetMapping(path = "/getTaskDtobyDep")
     public ResponseEntity<List<TaskDto>> getTaskDtobyDep(@RequestParam Long departmentId) {
@@ -268,6 +257,7 @@ public ResponseEntity<List<TaskDto>> getAllTaskData() {
     public ResponseEntity<List<LeaveDto>>getAllLeaveDatabydep(@RequestParam Long departmentId){
         return departmentService.getAllLeaveDatabydep(departmentId);
     }
+
     //get by hr request dto
 
     @GetMapping(path = "/getAllLateDtobydep")
@@ -275,7 +265,9 @@ public ResponseEntity<List<TaskDto>> getAllTaskData() {
         return  departmentService.getAllLateDatabydep(departmentId);
 
     }
+
     //approve leave
+
     @PutMapping(path = "/addApprovaleave")
     public ResponseEntity<?>addApprovalsleave(@RequestParam Long leaveId, @RequestParam Long statusId){
         try {
@@ -285,7 +277,9 @@ public ResponseEntity<List<TaskDto>> getAllTaskData() {
         }
         return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     //approve late
+
     @PutMapping(path = "/addApprovalate")
     public ResponseEntity<?>addApprovalslate(@RequestParam Long lateId, @RequestParam Long statusId){
         try {
@@ -295,10 +289,12 @@ public ResponseEntity<List<TaskDto>> getAllTaskData() {
         }
         return new ResponseEntity<>( "something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
-    //view employee list
-    @GetMapping(path = "/listEmployeesbyhr")
-    public ResponseEntity<List<EmployeeModel>>listEmployeesbyhr(@RequestParam Long departmentId){
-        return departmentService.listEmployeesbyhr(departmentId);
-    }
 
+        //hr view employee details
+
+        @GetMapping(path = "/listEmployeesbyhr")
+        public ResponseEntity<List<EmpDto>>listEmployeesbyhr(@RequestParam Long departmentId){
+        return departmentService.listEmployeesbyhr(departmentId);
+
+        }
 }

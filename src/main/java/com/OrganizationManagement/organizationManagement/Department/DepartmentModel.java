@@ -23,13 +23,7 @@ public class DepartmentModel {
     public void setDepartmentId(Long departmentId) {
         this.departmentId = departmentId;
     }
-//    public Long getDepId() {
-//        return depId;
-//    }
-//
-//    public void setDepId(Long depId) {
-//        this.depId = depId;
-//    }
+
 
     public String getDepartment() {
         return department;

@@ -50,11 +50,11 @@ public class EmployeeService {
     private DepartmentRepo departmentRepo;
     @Autowired
     private ResouceRepo resouceRepo;
-//employee registration
+
+    //employee registration
 
     public ResponseEntity<?> employeeDetails(EmployeeModel employeeModel, MultipartFile employeeImage) throws IOException {
         EmployeeModel employeeModel1 = new EmployeeModel();
-
         employeeModel1.setName(employeeModel.getName());
         employeeModel1.setEmail(employeeModel.getEmail());
         employeeModel1.setPassword(employeeModel.getPassword());
@@ -72,10 +72,9 @@ public class EmployeeService {
     }
 
 
-    //leave
+    // add leave
 
     public ResponseEntity<?> leavestatus(LeaveModel leaveModel) {
-
         LeaveModel leaveModel1 = new LeaveModel();
         leaveModel1.setStartDate(leaveModel.getStartDate());
         leaveModel1.setEndDate(leaveModel.getEndDate());
@@ -83,7 +82,6 @@ public class EmployeeService {
         leaveModel1.setEmployeeId(leaveModel.getEmployeeId());
         leaveModel1.setDepartmentId(leaveModel.getDepartmentId());
         // leaveModel1.setTimestamp(leaveModel.getTimestamp());
-
         leaveRepo.save(leaveModel1);
         return new ResponseEntity<>(leaveModel1, HttpStatus.OK);
     }

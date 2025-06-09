@@ -73,6 +73,7 @@ public class AdminService {
         adminRepo.save(adminModel1);
         return new ResponseEntity<>(adminModel1, HttpStatus.OK);
     }
+
     //login admin and employee and hr
 
     public ResponseEntity<?> login(RequestDto requestDto) {
@@ -122,7 +123,7 @@ public class AdminService {
         }
             return new ResponseEntity<>("Incorrect  login details", HttpStatus.BAD_REQUEST);
     }
-//designation name
+    //designation name
 
     public ResponseEntity<?> addName(DesignationModel designationModel) {
         DesignationModel designationModel1 = new DesignationModel();
@@ -131,8 +132,8 @@ public class AdminService {
         return new ResponseEntity<>(designationModel1, HttpStatus.OK);
     }
 
-
     //admin add designationId
+
     public ResponseEntity<?> designationAdd(Long employeeId, Long designationId) {
         Optional<EmployeeModel> optionalEmployeeModel = employeeRepo.findById(employeeId);
 
@@ -203,7 +204,7 @@ public class AdminService {
         System.out.println("Email not found in both tables!");
         return new ResponseEntity<>("Email not found", HttpStatus.NOT_FOUND);
     }
-//status add
+    //status add
 
     public ResponseEntity<?> statusDetails(StatusModel statusModel) {
         StatusModel statusModel1 = new StatusModel();
@@ -218,7 +219,7 @@ public class AdminService {
         return new ResponseEntity<>(designationModels, HttpStatus.OK);
     }
 
-//get all leave req
+    //get all leave req
 
     public ResponseEntity<List<LeaveModel>> getLeavereq() {
         List<LeaveModel> leaveModels = leaveRepo.findAll();
@@ -226,13 +227,14 @@ public class AdminService {
     }
 
 
-//get all status
+    //get all status
 
     public ResponseEntity<List<StatusModel>> getAllStatus() {
         List<StatusModel> statusModels = statusRepo.findAll();
         return new ResponseEntity<>(statusModels, HttpStatus.OK);
     }
-//update status
+
+    //update status
 
     public ResponseEntity<?> updateName(Long statusId, String statusName) {
         Optional<StatusModel> statusModelOptional = statusRepo.findById(statusId);
@@ -245,7 +247,8 @@ public class AdminService {
             return new ResponseEntity<>("user not found", HttpStatus.NOT_FOUND);
         }
     }
-//delete status
+
+    //delete status
 
     public ResponseEntity<?> deletestatus(Long statusId) {
         Optional<StatusModel> optionalStatusModel = statusRepo.findById(statusId);
@@ -303,7 +306,8 @@ public class AdminService {
         return new ResponseEntity<>(lateModelList,HttpStatus.OK);
 
     }
-//get status
+
+    //get status
 
     public ResponseEntity<?> getStatus() {
         List<StatusModel>statusModelList=statusRepo.findAll();
@@ -324,24 +328,29 @@ public class AdminService {
         return new ResponseEntity<>(departmentModelList,HttpStatus.OK);
     }
 
-//get all late request
+    //get all late request
 
     public ResponseEntity<List<DepartmentModel>> getAllDepartment() {
         List<DepartmentModel>departmentModels=departmentRepo.findAll();
         return new ResponseEntity<>(departmentModels,HttpStatus.OK);
     }
 
-//get All role
+    //get All role
+
     public ResponseEntity<List<RoleModel>> getRole() {
         List<RoleModel>roleModelList=roleRepo.findAll();
         return new ResponseEntity<>(roleModelList,HttpStatus.OK);
     }
-//get all resources
+
+    //get all resources
+
     public ResponseEntity<List<ResourceModel>> getAllResources() {
         List<ResourceModel>resourceModelList=resouceRepo.findAll();
         return new ResponseEntity<>(resourceModelList,HttpStatus.OK);
     }
-//get all employee
+
+    //admin get all employees
+
     public ResponseEntity<List<EmpDto>> getAllEmployees() {
         List<EmployeeModel>employeeModelList=employeeRepo.findByRoleIdNot(1L);
         List<EmpDto>empDtoList=new ArrayList<>();
@@ -376,7 +385,9 @@ public class AdminService {
 
 
     }
-//get all resourse
+
+    //get all resourse
+
     public ResponseEntity<List<ResourceDto>> admingetAllResource() {
         List<ResourceDto> resourceDtoList = new ArrayList<>();
         List<ReqResourceModel> reqResourceModelList = reqResourceRepo.findAll();
@@ -402,20 +413,13 @@ public class AdminService {
                 statusRepo.findById(reqResourceModel.getStatusId()).ifPresent(statusModel ->
                         dto.setStatus(statusModel.getStatusName())
                 );
-//                //fetch
-//                departmentRepo.findById(reqResourceModel.getDepartmentId()).ifPresent(departmentModel ->
-//                        dto.setDepartment(departmentModel.getDepartment())
-//                );
+
                 if (reqResourceModel.getDepartmentId() != null) {
                     departmentRepo.findById(reqResourceModel.getDepartmentId())
                             .ifPresent(departmentModel -> dto.setDepartment(departmentModel.getDepartment()));
                 }
 
-
-
-
-
-                // Fetch Resource Name (Corrected)
+                // Fetch Resource Name
                 resouceRepo.findById(reqResourceModel.getResourceId()).ifPresent(resourceModel ->
                         dto.setResource(resourceModel.getResource())
                 );
@@ -426,7 +430,9 @@ public class AdminService {
 
         return new ResponseEntity<>(resourceDtoList, HttpStatus.OK);
     }
-//update designation
+
+    //update designation
+
     public ResponseEntity<?> updateDesignationName(Long employeeId, Long designationId) {
         Optional<EmployeeModel> employeeModelOptional = employeeRepo.findById(employeeId);
         if (employeeModelOptional.isPresent()) {
@@ -440,7 +446,7 @@ public class AdminService {
 
     }
 
-//update resource
+    //update resource
 
     public ResponseEntity<?> updateResource(Long resourceId,Integer quantity) {
         Optional<ResourceModel>resourceModelOptional=resouceRepo.findById(resourceId);

@@ -27,16 +27,6 @@ public class EmployeeModel {
     @Column(name = "name")
     private String name;
 
-
-
-    public String getDepartmentName() {
-        return departmentName;
-    }
-
-    public void setDepartmentName(String departmentName) {
-        this.departmentName = departmentName;
-    }
-
     @Column(name = "email")
     private String email;
 
@@ -52,12 +42,9 @@ public class EmployeeModel {
     @Column(name = "joinDate")
     private LocalDate joinDate;
 
-
     @Lob
     @Column(name = "employeeImage")
     private byte[] employeeImage;
-
-
 
     public Long getRoleId() {
         return roleId;
@@ -67,6 +54,13 @@ public class EmployeeModel {
         this.roleId = roleId;
     }
 
+    public String getDepartmentName() {
+        return departmentName;
+    }
+
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
+    }
 
 
     public byte[] getEmployeeImage() {

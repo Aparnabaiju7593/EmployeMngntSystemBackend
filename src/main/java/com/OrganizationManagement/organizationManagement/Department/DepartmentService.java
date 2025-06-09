@@ -5,10 +5,7 @@ import com.OrganizationManagement.organizationManagement.Designation.Designation
 import com.OrganizationManagement.organizationManagement.Designation.DesignationRepo;
 import com.OrganizationManagement.organizationManagement.Employee.EmployeeModel;
 import com.OrganizationManagement.organizationManagement.Employee.EmployeeRepo;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.LateDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.LeaveDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.ResourceDto;
-import com.OrganizationManagement.organizationManagement.EmployeeDto.TaskDto;
+import com.OrganizationManagement.organizationManagement.EmployeeDto.*;
 import com.OrganizationManagement.organizationManagement.Late.LateModel;
 import com.OrganizationManagement.organizationManagement.Late.LateRepo;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
@@ -19,6 +16,8 @@ import com.OrganizationManagement.organizationManagement.ReqResource.ReqResource
 import com.OrganizationManagement.organizationManagement.ReqResource.ReqResourceRepo;
 import com.OrganizationManagement.organizationManagement.Resource.ResouceRepo;
 import com.OrganizationManagement.organizationManagement.Resource.ResourceModel;
+import com.OrganizationManagement.organizationManagement.Role.RoleModel;
+import com.OrganizationManagement.organizationManagement.Role.RoleRepo;
 import com.OrganizationManagement.organizationManagement.Status.StatusModel;
 import com.OrganizationManagement.organizationManagement.Status.StatusRepo;
 import com.OrganizationManagement.organizationManagement.Task.TaskModel;
@@ -57,6 +56,8 @@ public class DepartmentService {
     private StatusRepo statusRepo;
     @Autowired
     private ReqResDepRepo reqResDepRepo;
+    @Autowired
+    private RoleRepo roleRepo;
 
 
     //add department
@@ -93,6 +94,7 @@ public class DepartmentService {
 
 
     }
+
     //get all designation
 
     public ResponseEntity<List<DesignationModel>> getAllEmployees() {
@@ -107,14 +109,14 @@ public class DepartmentService {
         return new ResponseEntity<>(leaveModels,HttpStatus.OK);
     }
 
-//get all late request
+    //get all late request
 
     public ResponseEntity<List<LateModel>> getLateReq() {
         List<LateModel>lateModels=lateRepo.findAll();
         return new ResponseEntity<>(lateModels,HttpStatus.OK);
     }
 
-            //add resources
+    //add resources
 
     public ResponseEntity<?> resourceDetails(ResourceModel resourceModel) {
         ResourceModel resourceModel1=new ResourceModel();
@@ -127,8 +129,7 @@ public class DepartmentService {
 
     }
 
-
-                     //approved resource
+    //approved resource
 
     public ResponseEntity<?> approvedDep(Long employeeId, Long statusId) {
         // Validate Employee
@@ -189,13 +190,14 @@ public class DepartmentService {
     }
 
 
-                 //getall department
+    //getall department
 
     public ResponseEntity<List<DepartmentModel>> getAllDep() {
         List<DepartmentModel>departmentModels=departmentRepo.findAll();
         return new ResponseEntity<>(departmentModels,HttpStatus.OK);
     }
-                //update department
+
+    //update department
 
     public ResponseEntity<?> updateDepmt(Long departmentId, String department) {
         Optional<DepartmentModel>departmentModelOptional=departmentRepo.findById(departmentId);
@@ -206,7 +208,8 @@ public class DepartmentService {
         }
         return new ResponseEntity<>("department not updated",HttpStatus.NOT_FOUND);
     }
-                //delete department
+
+    //delete department
 
     public ResponseEntity<?> deleteDep(Long departmentId) {
         Optional<DepartmentModel>optionalDepartmentModel=departmentRepo.findById(departmentId);
@@ -217,7 +220,8 @@ public class DepartmentService {
         }
         return new ResponseEntity<>("department not found",HttpStatus.NOT_FOUND);
     }
-//get employee
+
+    //get employee
 
     public ResponseEntity<?> getEmployeeDetail(Long designationId) {
         List<EmployeeModel>employeeModelList=employeeRepo.findByDesignationId(designationId);
@@ -227,7 +231,7 @@ public class DepartmentService {
         return new ResponseEntity<>(employeeModelList,HttpStatus.OK);
     }
 
-//get late request
+    //get late request
 
     public ResponseEntity<?> getLateRequest(Long departmentId) {
         List<LateModel>lateModelList=lateRepo.findByDepartmentId(departmentId);
@@ -237,15 +241,12 @@ public class DepartmentService {
         return new ResponseEntity<>(lateModelList,HttpStatus.OK);
     }
 
-
-
-//getall resources
+    //getall resources
 
     public ResponseEntity<List<ResourceModel>> getAllResources() {
         List<ResourceModel>resourceModelList=resouceRepo.findAll();
         return new ResponseEntity<>(resourceModelList,HttpStatus.OK);
     }
-
 
     //get all late request dto
 
@@ -286,36 +287,7 @@ public class DepartmentService {
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
     }
 
-
-//get all leave request dto
-
-//    public ResponseEntity<List<LeaveDto>> getAllLeave() {
-//        List<LeaveDto>leaveDtos=new ArrayList<>();
-//        List<LeaveModel>leaveModelList=leaveRepo.findAll();
-//        if (!leaveModelList.isEmpty()){
-//            for (LeaveModel leaveModel:leaveModelList){
-//                LeaveDto leaveDto= new LeaveDto();
-//                leaveDto.setLeaveId(leaveModel.getLeaveId());
-//                leaveDto.setEmployeeId(leaveModel.getEmployeeId());
-//                leaveDto.setReason(leaveModel.getReason());
-//                leaveDto.setStartDate(leaveModel.getStartDate());
-//                leaveDto.setEndDate(leaveModel.getEndDate());
-//                Optional<EmployeeModel>employeeModelOptional=employeeRepo.findById(leaveModel.getEmployeeId());
-//                if (employeeModelOptional.isPresent()){
-//                    EmployeeModel employeeModel=employeeModelOptional.get();
-//                    leaveDto.setEmployeeName(employeeModel.getName());
-//                }
-//                Optional<StatusModel>statusModelOptional=statusRepo.findById(leaveModel.getStatusId());
-//                if (statusModelOptional.isPresent()){
-//                    StatusModel statusModel=statusModelOptional.get();
-//                    leaveDto.setStatus(statusModel.getStatusName());
-//                }
-//                leaveDtos.add(leaveDto);
-//            }
-//            return new ResponseEntity<>(leaveDtos,HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
-//    }
+    //get all leave request dto
 
     public ResponseEntity<List<LeaveDto>> getAllLeave() {
         List<LeaveDto> leaveDtos = new ArrayList<>();
@@ -347,9 +319,7 @@ public class DepartmentService {
         return ResponseEntity.ok(leaveDtos);
     }
 
-
     //get all task by dto
-
 
     public ResponseEntity<List<TaskDto>> getAllTask() {
         List<TaskDto> taskDtos = new ArrayList<>();
@@ -393,7 +363,7 @@ public class DepartmentService {
         return new ResponseEntity<>(taskDtos, HttpStatus.OK);
     }
 
-
+//get task
 
     public ResponseEntity<List<TaskDto>> getTaskDtobyDep(Long departmentId) {
         List<TaskDto> taskDtos = new ArrayList<>();
@@ -453,6 +423,7 @@ public class DepartmentService {
         }
 
     }
+
     //update leave status id
 
     public ResponseEntity<?> upleaveStatus(Long employeeId, Long statusId) {
@@ -465,10 +436,10 @@ public class DepartmentService {
         }else {
             return new ResponseEntity<>("not found",HttpStatus.INTERNAL_SERVER_ERROR);
         }
-
-
     }
-//update late status
+
+    //update late status
+
     public ResponseEntity<?> uplateSatus(Long lateId, Long statusId) {
         Optional<LateModel>lateModelOptional=lateRepo.findById(lateId);
         if (lateModelOptional.isPresent()){
@@ -481,7 +452,6 @@ public class DepartmentService {
 
         }
     }
-
 
     //get all resources
 
@@ -498,8 +468,6 @@ public class DepartmentService {
                 dto.setQuantity(reqResourceModel.getQuantity());
                 dto.setReason(reqResourceModel.getReason());
                 dto.setRequestDate(reqResourceModel.getRequestDate());
-
-
                 dto.setApprovalDate(reqResourceModel.getApprovalDate());
 
                 // Fetch Employee Name
@@ -512,8 +480,6 @@ public class DepartmentService {
                         dto.setStatus(statusModel.getStatusName())
                 );
 
-
-
                 // Fetch Resource Name (Corrected)
                 resouceRepo.findById(reqResourceModel.getResourceId()).ifPresent(resourceModel ->
                         dto.setResource(resourceModel.getResource())
@@ -522,14 +488,14 @@ public class DepartmentService {
                         dto.setAvailablequantity(resourceModel.getQuantity())
                 );
 
-
                 resourceDtoList.add(dto);
             }
         }
-
         return new ResponseEntity<>(resourceDtoList, HttpStatus.OK);
     }
-//leave get by dep
+
+    //leave get by dep
+
     public ResponseEntity<?> getLeaveDep(Long departmentId) {List<LeaveDto> leaveDtoList = new ArrayList<>();
 
         List<LeaveModel> leaveModelList = leaveRepo.findByDepartmentId(departmentId);
@@ -559,10 +525,11 @@ public class DepartmentService {
                 leaveDtoList.add(leaveDto);
             }
         }
-
         return new ResponseEntity<>(leaveDtoList, HttpStatus.OK);
     }
-//getall leave by dep id
+
+    //getall leave by dep id
+
     public ResponseEntity<List<LeaveDto>> getAllLeaveDatabydep(Long departmentId) {
         List<LeaveDto> leaveDtos = new ArrayList<>();
         List<LeaveModel> leaveModelList = leaveRepo.findByDepartmentId(departmentId);
@@ -594,6 +561,7 @@ public class DepartmentService {
     }
 
     //get late hr view
+
     public ResponseEntity<List<LateDto>> getAllLateDatabydep(Long departmentId) {
         List<LateDto> lateDtos= new ArrayList<>();
         List<LateModel>lateModelList= lateRepo.findByDepartmentId(departmentId);
@@ -631,7 +599,7 @@ public class DepartmentService {
         return new ResponseEntity<>(new ArrayList<>(),HttpStatus.OK);
     }
 
-//resource approval
+    //resource approval
 
     public ResponseEntity<?> addApprovals(Long reqResourceId, Long employeeId, Long statusId,String remarks) {
         Optional<ReqResourceModel> reqResourceModelOptional=reqResourceRepo.findByReqResourceIdAndEmployeeId(reqResourceId,employeeId);
@@ -646,7 +614,7 @@ public class DepartmentService {
         return new ResponseEntity<>("Request resourceid not found",HttpStatus.NOT_FOUND);
     }
 
-//leave approval by hr
+    //leave approval by hr
 
     public ResponseEntity<?> addApprovalsleave(Long leaveId, Long statusId) {
         Optional<LeaveModel> leaveModelOptional=leaveRepo.findById(leaveId);
@@ -659,6 +627,7 @@ public class DepartmentService {
         }
         return new ResponseEntity<>("leave id not found",HttpStatus.NOT_FOUND);
     }
+
     //late approval by hr
 
     public ResponseEntity<?> addApprovalslate(Long lateId, Long statusId) {
@@ -672,27 +641,42 @@ public class DepartmentService {
         }
         return new ResponseEntity<>("late id not found",HttpStatus.NOT_FOUND);
     }
-//hr view employee list
-    public ResponseEntity<List<EmployeeModel>> listEmployeesbyhr(Long departmentId) {
+
+    //hr view employee list
+
+    public ResponseEntity<List<EmpDto>> listEmployeesbyhr(Long departmentId) {
         List<EmployeeModel>employeeModelList=employeeRepo.findByDepartmentIdAndRoleId(departmentId,2);
-        return new ResponseEntity<>(employeeModelList,HttpStatus.OK);
+        List<EmpDto>empDtoList=new ArrayList<>();
+        if (!employeeModelList.isEmpty()){
+            for (EmployeeModel employeeModel: employeeModelList) {
+
+                EmpDto empDto = new EmpDto();
+                empDto.setName(employeeModel.getName());
+                empDto.setEmail(employeeModel.getEmail());
+                empDto.setEmployeeId(employeeModel.getEmployeeId());
+                empDto.setPhnno(employeeModel.getPhnno());
+                empDto.setDepartmentName(employeeModel.getDepartmentName());
+                empDto.setEmployeeImage(employeeModel.getEmployeeImage());
+                empDto.setJoinDate(employeeModel.getJoinDate());
+                if (employeeModel.getRoleId() != null) {
+                    roleRepo.findById(employeeModel.getRoleId())
+                            .ifPresent(roleModel -> empDto.setRole(roleModel.getRole()));
+                }
+
+                // Check if Designation ID is not null
+                if (employeeModel.getDesignationId() != null) {
+                    designationRepo.findById(employeeModel.getDesignationId())
+                            .ifPresent(designationModel -> empDto.setDesignationName(designationModel.getDesignationName()));
+                }
+                empDtoList.add(empDto);
+            }
+
+
+        }
+
+        return new ResponseEntity<>(empDtoList,HttpStatus.OK);
+
+
     }
-
-
-
-    //department request resources
-
-//    public ResponseEntity<?> resourceDep(ReqResDepModel reqResDepModel) {
-//        ReqResDepModel reqResDepModel1=new ReqResDepModel();
-//        reqResDepModel1.setDepartmentId(reqResDepModel.getDepartmentId());
-//        reqResDepModel1.setReason(reqResDepModel.getReason());
-//        reqResDepModel1.setRequestedDate(reqResDepModel.getRequestedDate());
-//        reqResDepModel1.setApprovedDate(reqResDepModel.getApprovedDate());
-//        reqResDepRepo.save(reqResDepModel1);
-//        return new ResponseEntity<>(reqResDepModel1,HttpStatus.OK);
-//    }
-
-
-
 
 }

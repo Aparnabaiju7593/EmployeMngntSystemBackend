@@ -54,7 +54,9 @@ public class AdminController {
             e.printStackTrace();
         }return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
-            //add designation name
+
+    //add designation name
+
     @PostMapping(path = "/addDesignationName")
     public ResponseEntity<?>addName(@RequestBody DesignationModel designationModel){
         try {
@@ -68,7 +70,6 @@ public class AdminController {
 
     //admin Add designationid
 
-
     @PostMapping(path = "/addDesignation")
     public ResponseEntity<?>designationAdding(@RequestParam Long employeeId,@RequestParam Long designationId) {
         try {
@@ -81,6 +82,7 @@ public class AdminController {
     }
 
     //delete designation by admin
+
     @DeleteMapping(path = "/deleteDesignation")
     public ResponseEntity<?>delete(@RequestParam Long designationId){
         try {
@@ -92,6 +94,7 @@ public class AdminController {
     }
 
     //add role
+
     @PostMapping(path = "/RoleData")
     public ResponseEntity<?>Details(@RequestBody RoleModel roleModel){
         try {
@@ -103,12 +106,14 @@ public class AdminController {
     }
 
     //display role
+
     @GetMapping (path = "/displayRole")
     public ResponseEntity<List<RoleModel>>displayrole(){
         return adminService.displayRole();
     }
 
-//update password
+     //update password
+
     @PutMapping(path = "/updatepassword")
     public ResponseEntity<?>update(@RequestBody RequestDto requestDto){
         try {
@@ -118,7 +123,9 @@ public class AdminController {
         }
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     //add status
+
     @PostMapping(path = "/statusAdd")
     public ResponseEntity<?>statusadd(@RequestBody StatusModel statusModel){
         try {
@@ -144,17 +151,6 @@ public class AdminController {
         return adminService.getLeavereq();
     }
 
-//add DepResource
-
-//    @PostMapping(path = "addDepResource")
-//    public ResponseEntity<?>AddDepResource(@RequestBody DepResModel depResModel){
-//        try {
-//            return adminService.depresDetails(depResModel);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
 
     //get all status list
 
@@ -179,50 +175,54 @@ public class AdminController {
     public ResponseEntity<?>deletestatus(@RequestParam Long statusId){
         return adminService.deletestatus(statusId);
     }
-//admin get employee
+
+    //admin get employee
 
     @GetMapping(path = "/getEmployee")
     public ResponseEntity<List<EmpDto>>getEmployeesData(@RequestParam Long designationId){
         return adminService.getEmployeesData(designationId);
     }
+
     //get late request by department id
+
     @GetMapping(path = "/getlaterequest")
     public ResponseEntity<?>getLateRequest(@RequestParam Long departmentId){
         return adminService.getLateRequest(departmentId);
     }
+
     //get status by statusId
 
     @GetMapping(path = "/getStatus")
     public ResponseEntity<?>getSatatus(){
         return adminService.getStatus();
     }
-//get department by departmentId
+
+    //get department by departmentId
 
     @GetMapping("/getDepartment")
     public ResponseEntity<?>getDepartment(@RequestParam Long departmentId){
         return adminService.getDepartment(departmentId);
     }
 
+    //list department
 
-
-//list department
-
-@GetMapping(path = "/listallDepartment")
+    @GetMapping(path = "/listallDepartment")
     public ResponseEntity<List<DepartmentModel>>getAllDepartment(){
         return adminService.getAllDepartment();
 }
 
 
-//list roles
+    //list roles
     @GetMapping(path = "/getAllRoles")
     public ResponseEntity<List<RoleModel>>getAll(){
         return adminService.getRole();
     }
-//list resources
+    //list resources
     @GetMapping(path = "/getAllResources")
     public ResponseEntity<List<ResourceModel>>getAllResources(){
         return adminService.getAllResources();
     }
+
     //list employee
     @GetMapping(path = "/listEmployees")
     public ResponseEntity<List<EmpDto>>getAllEmployees(){
@@ -235,6 +235,7 @@ public class AdminController {
     public ResponseEntity<List<ResourceDto>>admingetAllResource(){
         return adminService.admingetAllResource();
     }
+
     //update designation
 
     @PutMapping(path = "/updateDesignation")
@@ -247,16 +248,9 @@ public class AdminController {
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-//    @PutMapping(path = "/updateStatus")
-//    public ResponseEntity<?>updateName(@RequestParam Long statusId,@RequestParam String statusName){
-//        try {
-//            return adminService.updateName(statusId,statusName);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//        return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+
     //update  resource
+
     @PutMapping(path = "/updateResource")
     public ResponseEntity<?>updateResource(@RequestParam Long resourceId,@RequestParam Integer quantity){
         try {

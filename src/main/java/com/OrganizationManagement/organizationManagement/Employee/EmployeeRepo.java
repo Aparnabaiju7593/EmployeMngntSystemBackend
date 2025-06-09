@@ -25,5 +25,4 @@ public interface EmployeeRepo extends JpaRepository<EmployeeModel,Long> {
     List<EmployeeModel> findByRoleIdNot(long l);
 
 
-    // Optional<EmployeeModel> findByEmailAndPassword(String email, String password);
 }

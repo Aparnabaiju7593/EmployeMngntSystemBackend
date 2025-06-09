@@ -32,7 +32,9 @@ public class EmployeeController {
         }
         return new ResponseEntity<>("something went wrong", HttpStatus.INTERNAL_SERVER_ERROR);
     }
-//add leave request
+
+    //add leave request
+
     @PostMapping(path = "/addleave")
     public ResponseEntity<?>status(@RequestBody LeaveModel leaveModel){
         try {
@@ -42,7 +44,9 @@ public class EmployeeController {
         }
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
     //late request
+
     @PostMapping(path = "/lateReq")
     public ResponseEntity<?>late(@RequestBody LateModel lateModel){
         try {
@@ -64,7 +68,8 @@ public class EmployeeController {
         }
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
-//update progresstym task
+
+    //update progresstym task
 
     @PutMapping("/updatepgrs")
     public ResponseEntity<?>updatepgrs(@RequestParam Long taskId){
@@ -79,7 +84,6 @@ public class EmployeeController {
     //update complete tym
 
     @PutMapping("/updatecomptym")
-
     public ResponseEntity<?>updatecomtym(@RequestParam Long taskId){
         try {
             return employeeService.updatecomtym(taskId);
@@ -89,17 +93,16 @@ public class EmployeeController {
         return new ResponseEntity<>("something went wrong",HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-
-         //employee view task
+    //employee view task
 
     @GetMapping("/getEmployeeTask")
     public ResponseEntity<List<TaskDto>> getTaskView(@RequestParam Long employeeId) {
-//        if (employeeId == null) {
-//            return ResponseEntity.badRequest().body(Collections.emptyList());
-//        }
+
         return employeeService.getTaskView(employeeId);
     }
-//employee view leave
+
+    //employee view leave
+
     @GetMapping("/getLeaveView")
     public ResponseEntity<?>getLeaveView(@RequestParam Long employeeId){
         return employeeService.getLeaveView(employeeId);
@@ -124,12 +127,14 @@ public class EmployeeController {
         }
     }
 
-//        //resource view
+    //resource view
+
     @GetMapping("/getEmployeeviewResource")
     public ResponseEntity<?>getEmployeeviewResource(@RequestParam Long employeeId){
         return employeeService.getEmployeeviewResource(employeeId);
     }
 
+    //update role
 
     @PutMapping("/updaterole")
     public ResponseEntity<?>updaterole(@RequestParam Long employeeId){
