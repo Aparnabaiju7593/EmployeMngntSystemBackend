@@ -10,8 +10,8 @@ import com.OrganizationManagement.organizationManagement.Late.LateModel;
 import com.OrganizationManagement.organizationManagement.Late.LateRepo;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveModel;
 import com.OrganizationManagement.organizationManagement.Leave.LeaveRepo;
-import com.OrganizationManagement.organizationManagement.ReqResDepartment.ReqResDepModel;
-import com.OrganizationManagement.organizationManagement.ReqResDepartment.ReqResDepRepo;
+//import com.OrganizationManagement.organizationManagement.ReqResDepartment.ReqResDepModel;
+//import com.OrganizationManagement.organizationManagement.ReqResDepartment.ReqResDepRepo;
 import com.OrganizationManagement.organizationManagement.ReqResource.ReqResourceModel;
 import com.OrganizationManagement.organizationManagement.ReqResource.ReqResourceRepo;
 import com.OrganizationManagement.organizationManagement.Resource.ResouceRepo;
@@ -54,8 +54,8 @@ public class DepartmentService {
     private EmployeeRepo employeeRepo;
     @Autowired
     private StatusRepo statusRepo;
-    @Autowired
-    private ReqResDepRepo reqResDepRepo;
+//    @Autowired
+//    private ReqResDepRepo reqResDepRepo;
     @Autowired
     private RoleRepo roleRepo;
 
