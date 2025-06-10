@@ -85,20 +85,43 @@ public class EmployeeService {
         leaveRepo.save(leaveModel1);
         return new ResponseEntity<>(leaveModel1, HttpStatus.OK);
     }
+
 //late status
 
 
-    public ResponseEntity<?> latestatus(LateModel lateModel) {
-        LateModel lateModel1 = new LateModel();
-        lateModel1.setLateDate(lateModel.getLateDate());
-        lateModel1.setDepartmentId(lateModel.getDepartmentId());
-        lateModel1.setEmployeeId(lateModel.getEmployeeId());
-        lateModel1.setReason(lateModel.getReason());
-        lateModel1.setSubmittedTime(LocalDateTime.now());
-        lateRepo.save(lateModel1);
-        return new ResponseEntity<>(lateModel1, HttpStatus.OK);
+//    public ResponseEntity<?> latestatus(LateModel lateModel) {
+//        LateModel lateModel1 = new LateModel();
+//        lateModel1.setLateDate(lateModel.getLateDate());
+//        lateModel1.setDepartmentId(lateModel.getDepartmentId());
+//        lateModel1.setEmployeeId(lateModel.getEmployeeId());
+//        lateModel1.setReason(lateModel.getReason());
+//        lateModel1.setSubmittedTime(LocalDateTime.now());
+//        lateRepo.save(lateModel1);
+//        return new ResponseEntity<>(lateModel1, HttpStatus.OK);
+//
+//    }
+public ResponseEntity<?> latestatus(LateModel lateModel) {
+    // Check if employee already has a leave request for this date
+    List<LeaveModel> existingLeaves = lateRepo.findByEmployeeIdAndDate(
+            lateModel.getEmployeeId(),
+            lateModel.getLateDate()
+    );
 
+    if (!existingLeaves.isEmpty()) {
+        return new ResponseEntity<>("Cannot add late request - Leave already exists for this date",
+                HttpStatus.CONFLICT);
     }
+
+    LateModel lateModel1 = new LateModel();
+    lateModel1.setLateDate(lateModel.getLateDate());
+    lateModel1.setDepartmentId(lateModel.getDepartmentId());
+    lateModel1.setEmployeeId(lateModel.getEmployeeId());
+    lateModel1.setReason(lateModel.getReason());
+    lateModel1.setSubmittedTime(LocalDateTime.now());
+
+    lateRepo.save(lateModel1);
+    return new ResponseEntity<>(lateModel1, HttpStatus.OK);
+}
 
 //employee request resources
 

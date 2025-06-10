@@ -9,27 +9,15 @@ import lombok.Data;
 public class ResourceModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Column (name = "resourceId")
     private Long resourceId;
-
-//    @Column(name = "departmentId")
-//    private Long departmentId;
 
     @Column(name = "resource")
     private String resource;
 
     @Column(name = "quantity")
     private Integer quantity;
-
-
-
-//    public Long getDepartmentId() {
-//        return departmentId;
-//    }
-//
-//    public void setDepartmentId(Long departmentId) {
-//        this.departmentId = departmentId;
-//    }
 
     public Integer getQuantity() {
         return quantity;
